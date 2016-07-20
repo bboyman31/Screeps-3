@@ -85,7 +85,6 @@ var roleManager = {
                 if (!roleHandler.run(creep)) {
                     roleHandler.cleanup(creep);
                     creep.memory.role = 'idle';
-                    creep.name = 'Creep-' + creep.memory.num;
                 }
             }
         }
