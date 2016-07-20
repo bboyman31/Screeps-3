@@ -26,6 +26,7 @@ var roleHarvester = {
             }
         }
         creep.room.memory.sourceWorkers[creep.memory.targetIndex]++;
+        console.log('Harvester Initialised.');
     },
     
     /** @param {Creep} creep **/
