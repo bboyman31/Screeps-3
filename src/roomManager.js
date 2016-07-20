@@ -120,7 +120,7 @@ var roomManager = {
         lastX = undefined;
         lastY = undefined;
         for (let i = 0; i < leftExitPoses.length; i++) {
-            if (lastX !== undefined) {
+            if (lastY !== undefined) {
                 // Check if part of the same exit
                 let dy = lastY - leftExitPoses[i].y;
                 dy = dy * dy;
@@ -140,7 +140,6 @@ var roomManager = {
         helperWall.addWallEnds(exitAreas[exitAreaIndex], LEFT);
         exitAreaIndex++;
 
-
         room.memory.exitAreas = exitAreas;
 
         exitAreas.forEach(function (exitArea) {
@@ -155,7 +154,7 @@ var roomManager = {
             }
         });
 
-        //room.memory.initWalls = true;
+        room.memory.initWalls = true;
     }
 };
 
