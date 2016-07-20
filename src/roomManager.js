@@ -105,6 +105,7 @@ var roomManager = {
         }
 
         exitAreas.forEach(function (exitArea) {
+            console.log('exitArea: ' + exitArea);
             var x = Math.floor((exitArea[exitArea.length - 1].x + exitArea[0].x) / 2);
             var y = Math.floor((exitArea[exitArea.length - 1].y + exitArea[0].y) / 2) - 1;
             room.createConstructionSite(x, y, STRUCTURE_RAMPART)
