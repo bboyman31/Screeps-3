@@ -84,11 +84,17 @@ var roomManager = {
 
     initialiseWalls: function(room) {
         var bottomExitPoses = room.find(FIND_EXIT_BOTTOM);
+        var leftExitPoses = room.find(FIND_EXIT_LEFT);
         _.sortBy(bottomExitPoses, function(exit) { return exit.x; });
+        _.sortBy(leftExitPoses, function(exit) { return exit.y; });
 
         var exitAreaIndex = 0;
         var exitAreas = [];
         var lastX = undefined;
+        var lastY = undefined;
+
+        lastX = undefined;
+        lastY = undefined;
         for (let i = 0; i < bottomExitPoses.length; i++) {
             if (lastX !== undefined) {
                 // Check if part of the same exit
@@ -105,6 +111,27 @@ var roomManager = {
                 exitAreas[exitAreaIndex] = [{ x: bottomExitPoses[i].x, y: bottomExitPoses[i].y - 2 }];
             }
             lastX = bottomExitPoses[i].x;
+        }
+        exitAreaIndex++;
+
+        lastX = undefined;
+        lastY = undefined;
+        for (let i = 0; i < leftExitPoses.length; i++) {
+            if (lastX !== undefined) {
+                // Check if part of the same exit
+                let dy = lastY - leftExitPoses[i].y;
+                dy = dy * dy;
+                if (dy > 1) {
+                    // Not part of the same exit
+                    exitAreaIndex++;
+                }
+            }
+            if (exitAreas[exitAreaIndex] !== undefined) {
+                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: leftExitPoses[i].x + 2, y: leftExitPoses[i].y };
+            } else {
+                exitAreas[exitAreaIndex] = [{ x: leftExitPoses[i].x + 2, y: leftExitPoses[i].y }];
+            }
+            lastY = leftExitPoses[i].y;
         }
 
         room.memory.exitAreas = exitAreas;
