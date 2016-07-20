@@ -100,7 +100,7 @@ var roomManager = {
                 }
             }
             if (exitAreas[exitAreaIndex] !== undefined) {
-                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
+                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
             } else {
                 exitAreas[exitAreaIndex] = [{ x: bottomExitPoses[i].x, y: bottomExitPoses[i].y }];
             }
