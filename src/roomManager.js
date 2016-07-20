@@ -83,6 +83,32 @@ var roomManager = {
     },
 
     initialiseWalls: function(room) {
+        var bottomExitPoses = room.find(FIND_EXIT_BOTTOM);
+        _.sortBy(bottomExitPoses, function(exit) { return exit.x; });
+
+        var exitAreaIndex = 0;
+        var exitAreas = [[]];
+        var lastX = undefined;
+        for (let i = 0; i < bottomExitPoses; i++) {
+            if (lastX !== undefined) {
+                // Check if part of the same exit
+                let dx = lastX - bottomExitPoses[i].x;
+                dx = dx * dx;
+                if (dx > 1) {
+                    // Not part of the same exit
+                    exitAreaIndex++;
+                    exitAreas[exitAreaIndex] = [];
+                }
+                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
+            }
+            lastX = bottomExitPoses[i].x;
+        }
+
+        exitAreas.forEach(function (exitArea) {
+            var x = Math.floor((exitArea[exitArea.length - 1].x + exitArea[0].x) / 2);
+            var y = Math.floor((exitArea[exitArea.length - 1].y + exitArea[0].y) / 2) - 1;
+            room.createConstructionSite(x, y, STRUCTURE_RAMPART)
+        });
 
         //room.memory.initWalls = true;
     }
