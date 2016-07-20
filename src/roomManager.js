@@ -106,11 +106,9 @@ var roomManager = {
                     let endX = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].x;
                     let endY = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].y;
                     exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 1, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY + 1 };
+                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 1, y: startY + 1 };
                     exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 1, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY + 1 };
+                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 1, y: startY + 1 };
                     exitAreaIndex++;
                 }
             }
@@ -126,11 +124,9 @@ var roomManager = {
         let endX = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].x;
         let endY = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].y;
         exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 1, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY + 1 };
+        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 1, y: startY + 1 };
         exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 1, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY + 1 };
+        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 1, y: startY + 1 };
         exitAreaIndex++;
 
         lastX = undefined;
@@ -156,8 +152,8 @@ var roomManager = {
         room.memory.exitAreas = exitAreas;
 
         exitAreas.forEach(function (exitArea) {
-            var rx = Math.floor((exitArea[exitArea.length - 1].x + exitArea[0].x) / 2);
-            var ry = Math.floor((exitArea[exitArea.length - 1].y + exitArea[0].y) / 2);
+            var rx = Math.round((exitArea[exitArea.length - 1].x + exitArea[0].x) / 2);
+            var ry = Math.round((exitArea[exitArea.length - 1].y + exitArea[0].y) / 2);
             for (let i = 0; i < exitArea.length; i++) {
                 if (exitArea[i].x === rx && exitArea[i].y === ry) {
                     room.createConstructionSite(exitArea[i].x, exitArea[i].y, STRUCTURE_RAMPART);
