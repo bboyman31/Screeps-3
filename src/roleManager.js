@@ -1,6 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+var roleFixit = require('role.fixit');
 
 var roleManager = {
     run: function() {
@@ -21,7 +22,7 @@ var roleManager = {
             mainSpawn.memory.creepNum = 0;
         }
 
-        var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'upgrader', 'builder', 'upgrader', 'harvester', 'harvester', 'builder', 'upgrader', 'upgrader'];
+        var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader'];
 
         if (_.size(Game.creeps) < creepPriority.length) {
             var creepName = mainSpawn.createCreep([WORK,CARRY,MOVE], 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
@@ -37,6 +38,7 @@ var roleManager = {
                 case 'harvester' : roleHandler = roleHarvester; break;
                 case 'upgrader' : roleHandler = roleUpgrader; break;
                 case 'builder' : roleHandler = roleBuilder; break;
+                case 'fixit' : roleHandler = roleFixit; break;
             }
             
             if (!roleHandler) {
@@ -44,6 +46,7 @@ var roleManager = {
                 creepRoles['harvester'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester').length;
                 creepRoles['upgrader'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader').length;
                 creepRoles['builder'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder').length;
+                creepRoles['fixit'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'fixit').length;
                 
                 var desiredRole = 'idle'
                 for (var i = 0; i < creepPriority.length; i++) {
@@ -67,10 +70,22 @@ var roleManager = {
                     }
                 }
 
-                // If we're a builder but there's nothing to build, let's help the upgraders
+                // If we're a builder but there's nothing to build, then fixit fixit fixit
                 if (desiredRole === 'builder') {
                     var constructionSites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
                     if (constructionSites.length == 0) {
+                        desiredRole = 'fixit';
+                    }
+                }
+
+                // If we're a fixit but there's nothing to fix, let's help the upgraders
+                if (desiredRole === 'fixit') {
+                    var bustedStructures = creep.room.find(FIND_MY_STRUCTURES, {
+                        filter: (structure) => {
+                            return (structure.hits < structure.hitsMax);
+                        }
+                    });
+                    if (bustedStructures.length == 0) {
                         desiredRole = 'upgrader';
                     }
                 }
@@ -82,6 +97,7 @@ var roleManager = {
                         case 'harvester' : roleHandler = roleHarvester; break;
                         case 'upgrader' : roleHandler = roleUpgrader; break;
                         case 'builder' : roleHandler = roleBuilder; break;
+                        case 'fixit' : roleHandler = roleFixit; break;
                     }
                     roleHandler.init(creep);
                 } else {
