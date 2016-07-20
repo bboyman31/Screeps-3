@@ -12,14 +12,19 @@ var roleManager = {
             }
         }
 
-        if (!Game.spawns.Jargonia.memory.creepNum) {
-            Game.spawns.Jargonia.memory.creepNum = 0;
+        var mainSpawn;
+        for (var name in Game.spawns) {
+            mainSpawn = Game.spawns[name];
+        }
+
+        if (!mainSpawn.memory.creepNum) {
+            mainSpawn.memory.creepNum = 0;
         }
 
         var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'upgrader', 'builder', 'upgrader', 'harvester', 'harvester', 'builder', 'upgrader', 'upgrader'];
 
         if (_.size(Game.creeps) < creepPriority.length) {
-            var creepName = Game.spawns.Jargonia.createCreep([WORK,CARRY,MOVE], 'Creep-' + (++Game.spawns.Jargonia.memory.creepNum), { role: 'idle', num: Game.spawns.Jargonia.memory.creepNum });
+            var creepName = mainSpawn.createCreep([WORK,CARRY,MOVE], 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
             if (creepName !== ERR_BUSY && creepName !== ERR_NOT_ENOUGH_ENERGY) {
                 console.log('Spawning new creep: ' + creepName);
             }
