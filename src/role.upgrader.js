@@ -22,6 +22,7 @@ var roleUpgrader = {
         }
         creep.room.memory.sourceWorkers[creep.memory.targetIndex]++;
         creep.memory.upgrading = false;
+        console.log('[' + creep.name + '] Hmmm... Upgrades.');
     },
     
     /** @param {Creep} creep **/

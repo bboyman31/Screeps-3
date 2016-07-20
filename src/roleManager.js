@@ -9,7 +9,7 @@ var roleManager = {
         for(var name in Memory.creeps) {
             if(!Game.creeps[name]) {
                 delete Memory.creeps[name];
-                console.log('Clearing non-existing creep memory:', name);
+                console.log('[RoleManager] Clearing non-existing creep memory:', name);
             }
         }
 
@@ -27,7 +27,7 @@ var roleManager = {
         if (_.size(Game.creeps) < creepPriority.length) {
             var creepName = mainSpawn.createCreep([WORK,CARRY,MOVE], 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
             if (creepName !== ERR_BUSY && creepName !== ERR_NOT_ENOUGH_ENERGY) {
-                console.log('Spawning new creep: ' + creepName);
+                console.log('[RoleManager] Spawning new creep: ' + creepName);
             }
         }
 

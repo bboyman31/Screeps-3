@@ -1,11 +1,6 @@
 var roleHarvester = {
     /** @param {Creep} creep **/
     init: function(creep) {
-        /*
-        if (!creep.room.memory.resources) {
-            creep.room.memory.resources = creep.room.find(FIND_DROPPED_RESOURCES);
-        }
-        */
         if (!creep.room.memory.sources) {
             var sources = creep.room.find(FIND_SOURCES);
             creep.room.memory.sources = new Array(sources.length);
@@ -26,7 +21,7 @@ var roleHarvester = {
             }
         }
         creep.room.memory.sourceWorkers[creep.memory.targetIndex]++;
-        console.log('Harvester Initialised.');
+        console.log('[' + creep.name + '] Power overwhelming.');
     },
     
     /** @param {Creep} creep **/

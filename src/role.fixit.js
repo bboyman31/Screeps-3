@@ -22,6 +22,7 @@ var roleFixit = {
         }
         creep.room.memory.sourceWorkers[creep.memory.targetIndex]++;
         creep.memory.repairing = false;
+        console.log('[' + creep.name + '] Fixit! Fixit! Fixit!');
     },
     
     /** @param {Creep} creep **/

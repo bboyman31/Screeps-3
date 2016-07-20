@@ -22,6 +22,8 @@ var roleBuilder = {
         }
         creep.room.memory.sourceWorkers[creep.memory.targetIndex]++;
         creep.memory.building = false;
+
+        console.log('[' + creep.name + '] Let\'s get building!');
     },
     
     /** @param {Creep} creep **/
