@@ -1,0 +1,275 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"max-h",
+				"max-width"
+			],
+			[
+				"isvalid",
+				"isValidFood"
+			],
+			[
+				"font-size",
+				"font-size-adjust"
+			],
+			[
+				"i",
+				"initial"
+			],
+			[
+				"n",
+				"none"
+			],
+			[
+				"enable",
+				"enableSpinner"
+			],
+			[
+				"hasPo",
+				"hasPostVar"
+			],
+			[
+				"key",
+				"keyArray"
+			],
+			[
+				"remove",
+				"removeClass"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"//nugget/Wedding/uk/index.bak.php",
+		"//nugget/Wedding/css/main.css",
+		"//nugget/Wedding/js/custom.js",
+		"//nugget/Wedding/uk/mailer.php",
+		"//nugget/Wedding/us/mailer.php",
+		"//nugget/Wedding/uk/index.php",
+		"//nugget/Wedding/css/intro.css",
+		"//nugget/Wedding/index.php",
+		"//nugget/Wedding/.htaccess",
+		"//nugget/Wedding/uk/rsvp.php",
+		"//nugget/Wedding/us/rsvp.php",
+		"/D/Users/Jargon/Desktop/localhost-1467805837009.log",
+		"/D/Users/Jargon/Desktop/localhost-1467806057776.log",
+		"//nugget/Wedding/us/index.php",
+		"//nugget/Wedding/us/index.bak.php",
+		"//nugget/Wedding/js/bootstrap-validator.js",
+		"/D/Users/Jargon/Downloads/stdout.log_13280_201661616957 (1).log",
+		"//nugget/Wedding/.htpasswd",
+		"/D/Users/Jargon/Downloads/191fe2-201606161351 (2).log",
+		"/D/Users/Jargon/Downloads/191fe2-201606161351 (3).log",
+		"/D/Users/Jargon/Downloads/stdout.log_2628_2016614125244 (1).log",
+		"/D/Users/Jargon/Downloads/stdout.log_2628_2016614125244 (2).log",
+		"/D/Users/Jargon/Downloads/stdout.log_13280_201661616957.log",
+		"/D/Users/Jargon/Downloads/stdout.log_3708_2016614105343.log",
+		"/D/Users/Jargon/Downloads/stdout.log_2628_2016614125244.log",
+		"/D/Users/Jargon/Downloads/stdout.log_4560_2016614133542.log",
+		"/D/Users/Jargon/Downloads/191fe2-201606161351 (1).log",
+		"/D/Users/Jargon/Downloads/191fe2-201606141253.log",
+		"/D/Users/Jargon/Downloads/015dd8-201605221612.log",
+		"/C/dist/sweetalert.min.js",
+		"/C/dist/sweetalert.css",
+		"//nugget/Wedding/us/javascripts/jGravity.js",
+		"//nugget/Wedding/us/stylesheets/base.css",
+		"//nugget/Wedding/us/javascripts/bootstrap-validator.js",
+		"//nugget/Wedding/us/javascripts/gravity.js",
+		"//nugget/Wedding/css/align.css",
+		"/C/IIS/Jobulator9000/logs/stdout.log_2488_2016218163342.log",
+		"/C/IIS/Jobulator9000/logs/stdout.log_9608_2016218172516.log",
+		"/C/testdeploy.log",
+		"/C/IIS/Jobulator9000/logs/stdout.log_1744_201621816189.log",
+		"/C/IIS/Jobulator9000/logs/W3SVC1/u_ex160218.log",
+		"/C/inetpub/logs/LogFiles/W3SVC1/u_ex160218.log"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"'",
+			"’",
+			"'",
+			"-2",
+			"rsvpFoodButtons",
+			"rsvpFoodBeefButton",
+			"rsvpFoodBeef",
+			"rsvpNameCont",
+			"fail",
+			"Future",
+			"fail:",
+			",,",
+			"fail:",
+			"fail",
+			"subtitle",
+			"nav",
+			"javascripts",
+			"pag",
+			"page",
+			"tips",
+			"fancybox",
+			"tipsy",
+			"subtitle",
+			"base",
+			"subtitle",
+			"font",
+			"Sanchez",
+			"font",
+			"Sanchez",
+			"entypo"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"-5",
+			"-4",
+			"-3"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Screeps.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 242.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
