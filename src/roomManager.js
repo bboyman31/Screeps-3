@@ -74,10 +74,10 @@ var roomManager = {
             console.log(path.length);
             for (let i = 0; i < path.length; i++) {
                 room.createConstructionSite(path[i].x, path[i].y, STRUCTURE_ROAD);
-                room.createConstructionSite(path[i].x + 1, path[i].y, STRUCTURE_ROAD);
-                room.createConstructionSite(path[i].x - 1, path[i].y, STRUCTURE_ROAD);
-                room.createConstructionSite(path[i].x, path[i].y + 1, STRUCTURE_ROAD);
-                room.createConstructionSite(path[i].x, path[i].y - 1, STRUCTURE_ROAD);
+                //room.createConstructionSite(path[i].x + 1, path[i].y, STRUCTURE_ROAD);
+                //room.createConstructionSite(path[i].x - 1, path[i].y, STRUCTURE_ROAD);
+                //room.createConstructionSite(path[i].x, path[i].y + 1, STRUCTURE_ROAD);
+                //room.createConstructionSite(path[i].x, path[i].y - 1, STRUCTURE_ROAD);
             }
         });
     },
