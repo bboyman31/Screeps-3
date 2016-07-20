@@ -125,7 +125,8 @@ var roomManager = {
                 let dy = lastY - leftExitPoses[i].y;
                 dy = dy * dy;
                 if (dy > 1) {
-                    // Not part of the same exit
+                    // Not part of the same exit so create the ends and start next
+                    helperWall.addWallEnds(exitAreas[exitAreaIndex], LEFT);
                     exitAreaIndex++;
                 }
             }
@@ -136,6 +137,9 @@ var roomManager = {
             }
             lastY = leftExitPoses[i].y;
         }
+        helperWall.addWallEnds(exitAreas[exitAreaIndex], LEFT);
+        exitAreaIndex++;
+
 
         room.memory.exitAreas = exitAreas;
 
