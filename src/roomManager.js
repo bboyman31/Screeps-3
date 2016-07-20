@@ -99,7 +99,11 @@ var roomManager = {
                     exitAreaIndex++;
                 }
             }
-            exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
+            if ([exitAreas[exitAreaIndex] !== undefined) {
+                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
+            } else {
+                exitAreas[exitAreaIndex][0] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };    
+            }
             lastX = bottomExitPoses[i].x;
         }
 
