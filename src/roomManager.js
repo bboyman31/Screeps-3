@@ -89,7 +89,7 @@ var roomManager = {
         var exitAreaIndex = 0;
         var exitAreas = [];
         var lastX = undefined;
-        for (let i = 0; i < bottomExitPoses; i++) {
+        for (let i = 0; i < bottomExitPoses.length; i++) {
             if (lastX !== undefined) {
                 // Check if part of the same exit
                 let dx = lastX - bottomExitPoses[i].x;
@@ -98,8 +98,8 @@ var roomManager = {
                     // Not part of the same exit
                     exitAreaIndex++;
                 }
-                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
             }
+            exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
             lastX = bottomExitPoses[i].x;
         }
 
