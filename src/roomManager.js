@@ -16,6 +16,10 @@ var roomManager = {
                 this.checkSourceRoads(room);
                 room.memory.initRoads = true;
             }
+
+            if (!room.memory.initWalls) {
+                this.initialiseWalls(room);
+            }
         }
     },
     
@@ -76,7 +80,11 @@ var roomManager = {
                 room.createConstructionSite(path[i].x, path[i].y - 1, STRUCTURE_ROAD);
             }
         });
+    },
 
+    initialiseWalls: function(room) {
+
+        //room.memory.initWalls = true;
     }
 };
 

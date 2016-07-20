@@ -56,7 +56,7 @@ var roleManager = {
                 
                 // If we're a harvester but we have too much energy, let's help the builders
                 if (desiredRole === 'harvester') {
-                    var energyTargets = creep.room.find(FIND_STRUCTURES, {
+                    var energyTargets = creep.room.find(FIND_MY_STRUCTURES, {
                             filter: (structure) => {
                                 return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
                                     structure.energy < structure.energyCapacity;
@@ -64,6 +64,14 @@ var roleManager = {
                     });
                     if (energyTargets.length == 0) {
                         desiredRole = 'builder';
+                    }
+                }
+
+                // If we're a builder but there's nothing to build, let's help the upgraders
+                if (desiredRole === 'builder') {
+                    var constructionSites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+                    if (constructionSites.length == 0) {
+                        desiredRole = 'upgrader';
                     }
                 }
                 
