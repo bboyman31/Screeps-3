@@ -113,10 +113,10 @@ var roomManager = {
             var rx = Math.floor((exitArea[exitArea.length - 1].x + exitArea[0].x) / 2);
             var ry = Math.floor((exitArea[exitArea.length - 1].y + exitArea[0].y) / 2);
             for (let i = 0; i < exitArea.length; i++) {
-                if (exitArea.x === rx && exitArea.y === ry) {
-                    room.createConstructionSite(exitArea.x, exitArea.y, STRUCTURE_RAMPART);
+                if (exitArea[i].x === rx && exitArea[i].y === ry) {
+                    room.createConstructionSite(exitArea[i].x, exitArea[i].y, STRUCTURE_RAMPART);
                 } else {
-                    room.createConstructionSite(exitArea.x, exitArea.y, STRUCTURE_WALL);
+                    room.createConstructionSite(exitArea[i].x, exitArea[i].y, STRUCTURE_WALL);
                 }
             }
         });
