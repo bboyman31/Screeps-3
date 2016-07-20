@@ -68,7 +68,6 @@ var roleManager = {
                 }
                 
                 creep.memory.role = desiredRole;
-                creep.name = desiredRole + '-' + creep.memory.num;
                 
                 if (creep.memory.role !== 'idle') {
                     switch (creep.memory.role) {
