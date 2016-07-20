@@ -100,18 +100,25 @@ var roomManager = {
                 }
             }
             if (exitAreas[exitAreaIndex] !== undefined) {
-                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
+                exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y - 2 };
             } else {
-                exitAreas[exitAreaIndex] = [{ x: bottomExitPoses[i].x, y: bottomExitPoses[i].y }];
+                exitAreas[exitAreaIndex] = [{ x: bottomExitPoses[i].x, y: bottomExitPoses[i].y - 2 }];
             }
             lastX = bottomExitPoses[i].x;
         }
 
+        room.memory.exitAreas = exitAreas;
+
         exitAreas.forEach(function (exitArea) {
-            console.log('exitArea: ' + exitArea);
-            var x = Math.floor((exitArea[exitArea.length - 1].x + exitArea[0].x) / 2);
-            var y = Math.floor((exitArea[exitArea.length - 1].y + exitArea[0].y) / 2) - 1;
-            room.createConstructionSite(x, y, STRUCTURE_RAMPART)
+            var rx = Math.floor((exitArea[exitArea.length - 1].x + exitArea[0].x) / 2);
+            var ry = Math.floor((exitArea[exitArea.length - 1].y + exitArea[0].y) / 2);
+            for (let i = 0; i < exitArea.length; i++) {
+                if (exitArea.x === rx && exitArea.y === ry) {
+                    room.createConstructionSite(exitArea.x, exitArea.y, STRUCTURE_RAMPART);
+                } else {
+                    room.createConstructionSite(exitArea.x, exitArea.y, STRUCTURE_WALL);
+                }
+            }
         });
 
         //room.memory.initWalls = true;
