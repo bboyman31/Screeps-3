@@ -1,4 +1,4 @@
-var wallHelper = require('helpers/wall.helper');
+var helperWall = require('helper.wall');
 
 var roomManager = {
     run: function() {
@@ -103,7 +103,7 @@ var roomManager = {
                 dx = dx * dx;
                 if (dx > 1) {
                     // Not part of the same exit so create the ends and start next
-                    wallHelper.addWallEnds(exitAreas[exitAreaIndex], BOTTOM);
+                    helperWall.addWallEnds(exitAreas[exitAreaIndex], BOTTOM);
                     exitAreaIndex++;
                 }
             }
@@ -114,7 +114,7 @@ var roomManager = {
             }
             lastX = bottomExitPoses[i].x;
         }
-        wallHelper.addWallEnds(exitAreas[exitAreaIndex], BOTTOM);
+        helperWall.addWallEnds(exitAreas[exitAreaIndex], BOTTOM);
         exitAreaIndex++;
 
         lastX = undefined;

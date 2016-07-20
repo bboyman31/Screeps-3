@@ -1,5 +1,4 @@
-var wallHelper = {
-    /** @param {Creep} creep **/
+var helperWall = {
     addWallEnds: function(wallArray, wallSide) {
         var startX = exitAreas[exitAreaIndex][0].x;
         var startY = exitAreas[exitAreaIndex][0].y;
@@ -19,4 +18,4 @@ var wallHelper = {
     }
 };
 
-module.exports = wallHelper;
+module.exports = helperWall;
