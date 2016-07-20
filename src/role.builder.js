@@ -45,13 +45,16 @@ var roleBuilder = {
 
         if(creep.memory.building) {
             var sites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
-            if (creep.build(sites[0]) == ERR_NOT_IN_RANGE) {
+            let result = creep.build(sites[0]);
+            if (result == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sites[0]);
+            } else if (result < 0) { // Not ok, cancel construction.
+                return false;
             }
         } else {
             if (creep.memory.targetIndex === undefined) return false; // Should have target, but if not let's cancel task.
             var source = Game.getObjectById(creep.room.memory.sources[creep.memory.targetIndex]);
-            if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
             }
         }

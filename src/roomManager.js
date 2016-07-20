@@ -101,7 +101,8 @@ var roomManager = {
                 let dx = lastX - bottomExitPoses[i].x;
                 dx = dx * dx;
                 if (dx > 1) {
-                    // Not part of the same exit
+                    // Not part of the same exit so create the ends and start next
+                    
                     exitAreaIndex++;
                 }
             }
