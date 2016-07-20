@@ -1,3 +1,5 @@
+var wallHelper = require('helpers/wall.helper');
+
 var roomManager = {
     run: function() {
         for (var name in Game.rooms) {
@@ -101,16 +103,7 @@ var roomManager = {
                 dx = dx * dx;
                 if (dx > 1) {
                     // Not part of the same exit so create the ends and start next
-                    let startX = exitAreas[exitAreaIndex][0].x;
-                    let startY = exitAreas[exitAreaIndex][0].y;
-                    let endX = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].x;
-                    let endY = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].y;
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 1, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY + 1 };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 1, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY };
-                    exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY + 1 };
+                    wallHelper.addWallEnds(exitAreas[exitAreaIndex], BOTTOM);
                     exitAreaIndex++;
                 }
             }
@@ -121,16 +114,7 @@ var roomManager = {
             }
             lastX = bottomExitPoses[i].x;
         }
-        let startX = exitAreas[exitAreaIndex][0].x;
-        let startY = exitAreas[exitAreaIndex][0].y;
-        let endX = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].x;
-        let endY = exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1].y;
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 1, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: startX - 2, y: startY + 1 };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 1, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY };
-        exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length] = { x: endX + 2, y: startY + 1 };
+        wallHelper.addWallEnds(exitAreas[exitAreaIndex], BOTTOM);
         exitAreaIndex++;
 
         lastX = undefined;
