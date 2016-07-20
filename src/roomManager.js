@@ -87,7 +87,7 @@ var roomManager = {
         _.sortBy(bottomExitPoses, function(exit) { return exit.x; });
 
         var exitAreaIndex = 0;
-        var exitAreas = [[]];
+        var exitAreas = [];
         var lastX = undefined;
         for (let i = 0; i < bottomExitPoses; i++) {
             if (lastX !== undefined) {
@@ -97,7 +97,6 @@ var roomManager = {
                 if (dx > 1) {
                     // Not part of the same exit
                     exitAreaIndex++;
-                    exitAreas[exitAreaIndex] = [];
                 }
                 exitAreas[exitAreaIndex][exitAreas[exitAreaIndex].length - 1] = { x: bottomExitPoses[i].x, y: bottomExitPoses[i].y };
             }
