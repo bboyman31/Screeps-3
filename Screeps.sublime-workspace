@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"exitArea",
+				"exitAreaIndex"
+			],
+			[
 				"max-h",
 				"max-width"
 			],
@@ -47,15 +51,18 @@
 			"file": "src/role.builder.js",
 			"settings":
 			{
-				"buffer_size": 2396,
+				"buffer_size": 2558,
 				"line_ending": "Windows"
 			}
 		},
 		{
+			"contents": "var roleHarvester = {\n    /** @param {Creep} creep **/\n    init: function(creep) {\n        /*\n        if (!creep.room.memory.resources) {\n            creep.room.memory.resources = creep.room.find(FIND_DROPPED_RESOURCES);\n        }\n        */\n        if (!creep.room.memory.sources) {\n            var sources = creep.room.find(FIND_SOURCES);\n            creep.room.memory.sources = new Array(sources.length);\n            for (var i = 0; i < sources.length; i++) {\n                creep.room.memory.sources[i] = sources[i].id;\n            }\n        }\n        if (!creep.room.memory.sourceWorkers) {\n            creep.room.memory.sourceWorkers = new Array(creep.room.memory.sources.length);\n            for (var i = 0; i < creep.room.memory.sourceWorkers.length; i++) {\n                creep.room.memory.sourceWorkers[i] = 0;\n            }\n        }\n        creep.memory.targetIndex = undefined;\n        for (var i = 0; i < creep.room.memory.sourceWorkers.length; i++) {\n            if (creep.memory.targetIndex === undefined || creep.room.memory.sourceWorkers[i] < creep.room.memory.sourceWorkers[creep.memory.targetIndex]) {\n                creep.memory.targetIndex = i;\n            }\n        }\n        creep.room.memory.sourceWorkers[creep.memory.targetIndex]++;\n    },\n    \n    /** @param {Creep} creep **/\n    cleanup: function(creep) {\n        if (creep.memory.targetIndex !== undefined) {\n            creep.room.memory.sourceWorkers[creep.memory.targetIndex]--;\n            creep.memory.targetIndex = undefined;\n        }\n    },\n    \n    /** @param {Creep} creep **/\n    run: function(creep) {\n        if (creep.carry.energy < creep.carryCapacity) {\n            var source = Game.getObjectById(creep.room.memory.sources[creep.memory.targetIndex]);\n            if(creep.harvest(source) == ERR_NOT_IN_RANGE) {\n                creep.moveTo(source);\n            }\n        } else {\n            var targets = creep.room.find(FIND_STRUCTURES, {\n                    filter: (structure) => {\n                        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&\n                            structure.energy < structure.energyCapacity;\n                    }\n            });\n            if (targets.length > 0) {\n                if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {\n                    creep.moveTo(targets[0]);\n                } else {\n                    return false;\n                }\n            } else {\n                var targets = creep.room.find(FIND_STRUCTURES, {\n                        filter: (structure) => {\n                            return (structure.structureType == STRUCTURE_SPAWN);\n                        }\n                });\n                if (targets.length > 0) {\n                    var home = targets[0];\n                    var dx = creep.pos.x - home.pos.x;\n                    var dy = creep.pos.y - home.pos.y;\n                    var distanceSq = dx * dx + dy * dy;\n                    if (distanceSq > 2) {\n                        creep.moveTo(home);\n                    } else {\n                        return false;\n                    }\n                }\n            }\n        }\n        return true;\n    }\n};\n\nmodule.exports = roleHarvester;\n",
 			"file": "src/role.harvester.js",
+			"file_size": 3398,
+			"file_write_time": 131134901949861113,
 			"settings":
 			{
-				"buffer_size": 3315,
+				"buffer_size": 3268,
 				"line_ending": "Windows"
 			}
 		},
@@ -63,7 +70,7 @@
 			"file": "src/role.upgrader.js",
 			"settings":
 			{
-				"buffer_size": 1251,
+				"buffer_size": 2403,
 				"line_ending": "Windows"
 			}
 		},
@@ -71,7 +78,7 @@
 			"file": "src/roleManager.js",
 			"settings":
 			{
-				"buffer_size": 4031,
+				"buffer_size": 4413,
 				"line_ending": "Windows"
 			}
 		},
@@ -79,7 +86,7 @@
 			"file": "src/roomManager.js",
 			"settings":
 			{
-				"buffer_size": 3737,
+				"buffer_size": 6655,
 				"line_ending": "Windows"
 			}
 		}
@@ -243,15 +250,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2396,
+						"buffer_size": 2558,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2396,
-								2396
+								2135,
+								2135
 							]
 						],
 						"settings":
@@ -262,10 +269,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 405.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -274,46 +281,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3315,
+						"buffer_size": 3268,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1309,
-								1309
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/role.upgrader.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1251,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1251,
-								1251
+								1525,
+								1339
 							]
 						],
 						"settings":
@@ -331,51 +307,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "src/roleManager.js",
+					"buffer": 2,
+					"file": "src/role.upgrader.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4031,
+						"buffer_size": 2403,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3949,
-								3949
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 494.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/roomManager.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3737,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								699,
-								703
+								1149,
+								1149
 							]
 						],
 						"settings":
@@ -387,6 +332,68 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/roleManager.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4413,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3546,
+								3546
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/roomManager.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6655,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4638,
+								4638
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2340.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
