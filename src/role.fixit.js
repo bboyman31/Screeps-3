@@ -4,6 +4,7 @@ var roleFixit = {
         creep.memory.targetIndex = creep.room.getUnderworkedSource();
         creep.room.memory.sources[creep.memory.targetIndex].workerCount++;
         creep.memory.repairing = false;
+        creep.memory.repairTargetId = undefined;
         console.log('[' + creep.name + '] Fixit! Fixit! Fixit!');
     },
     
@@ -14,6 +15,7 @@ var roleFixit = {
             creep.memory.targetIndex = undefined;
         }
         creep.memory.repairing = undefined;
+        creep.memory.repairTargetId = undefined;
     },
     
     /** @param {Creep} creep **/
@@ -27,14 +29,19 @@ var roleFixit = {
         }
 
         if(creep.memory.repairing) {
-            var structures = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.hits < structure.hitsMax);
-                }
-            });
-            let result = creep.repair(structures[0]);
+            if (!creep.memory.repairTargetId) {
+                let structures = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.hits < structure.hitsMax);
+                    }
+                });
+                creep.memory.repairTargetId = structures[0].id;
+            }
+
+            let structure = Game.getObjectById(creep.memory.repairTargetId);
+            let result = creep.repair(structure);
             if (result == ERR_NOT_IN_RANGE) {
-                creep.moveTo(structures[0]);
+                creep.moveTo(structure);
             } else if (result < 0) { // Not ok, cancel repair.
                 return false;
             }
