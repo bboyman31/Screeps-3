@@ -3,7 +3,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleFixit = require('role.fixit');
 
-var roleManager = {
+var managerRole = {
     run: function() {
         // Always place this memory cleaning code at the very top of your main loop!
         for(var name in Memory.creeps) {
@@ -124,4 +124,4 @@ var roleManager = {
     }
 };
 
-module.exports = roleManager;
+module.exports = managerRole;

@@ -1,5 +1,5 @@
-var roomManager = require('roomManager');
-var roleManager = require('roleManager');
+var roomManager = require('manager.room');
+var roleManager = require('manager.role');
 
 module.exports.loop = function () {
     roomManager.run();

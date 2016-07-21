@@ -1,7 +1,7 @@
 var helperWall = require('helper.wall');
 var helperRoad = require('helper.road');
 
-var roomManager = {
+var managerRoom = {
     run: function() {
         for (var name in Game.rooms) {
             var room = Game.rooms[name];
@@ -177,4 +177,4 @@ var roomManager = {
     }
 };
 
-module.exports = roomManager;
+module.exports = managerRoom;
