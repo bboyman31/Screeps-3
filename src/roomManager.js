@@ -33,6 +33,11 @@ var roomManager = {
         if (extensions < 3) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
         if (extensions < 4) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
         if (extensions < 5) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
+        if (extensions < 6) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
+        if (extensions < 7) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
+        if (extensions < 8) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);        
+        if (extensions < 9) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
+        if (extensions < 10) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION); 
     },
     
     /** @param {Room} room **/
@@ -53,7 +58,7 @@ var roomManager = {
 
         goals.forEach(function(goal) {
             let pathResult = PathFinder.search(room.memory.home.pos, goal, {
-                // We want to priortise terrain type because we're building
+                // We don't want to priortise terrain type because we're building
                 // roads the most direct route.
                 plainCost: 1,
                 swampCost: 1,
