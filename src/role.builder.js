@@ -48,7 +48,7 @@ var roleBuilder = {
             }
         } else {
             if (creep.memory.targetIndex === undefined) return false; // Should have target, but if not let's cancel task.
-            var source = Game.getObjectById(creep.room.memory.sources[creep.memory.targetIndex]);
+            var source = Game.getObjectById(creep.room.memory.sources[creep.memory.targetIndex].id);
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
             }

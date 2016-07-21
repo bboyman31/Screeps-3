@@ -38,7 +38,7 @@ var managerRoom = {
         var sources = room.find(FIND_SOURCES);
         room.memory.sources = new Array(sources.length);
         for (var i = 0; i < sources.length; i++) {
-            room.memory.sources[i] = sources[i].id;
+            room.memory.sources[i] = { id: sources[i].id, workerCount: 0, containerId: null };
         }
     },
     
