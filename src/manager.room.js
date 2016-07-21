@@ -197,7 +197,7 @@ var managerRoom = {
         var creeps = spawn.pos.findInRange(FIND_MY_CREEPS, 1);
         creeps.forEach(function (creep) {
             if (creep.ticksToLive < 1000) {
-                room.memory.home.renewCreep(creep);
+                spawn.renewCreep(creep);
             }
         });
     }
