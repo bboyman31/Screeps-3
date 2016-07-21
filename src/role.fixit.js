@@ -45,7 +45,7 @@ var roleFixit = {
         }
 
         if(creep.memory.repairing) {
-            var structures = creep.room.find(FIND_MY_STRUCTURES, {
+            var structures = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.hits < structure.hitsMax);
                 }
