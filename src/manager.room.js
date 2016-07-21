@@ -121,8 +121,8 @@ var managerRoom = {
     initialiseWalls: function(room) {
         var bottomExitPoses = room.find(FIND_EXIT_BOTTOM);
         var leftExitPoses = room.find(FIND_EXIT_LEFT);
-        _.sortBy(bottomExitPoses, function(exit) { return exit.x; });
-        _.sortBy(leftExitPoses, function(exit) { return exit.y; });
+        bottomExitPoses = _.sortBy(bottomExitPoses, function(exit) { return exit.x; });
+        leftExitPoses = _.sortBy(leftExitPoses, function(exit) { return exit.y; });
 
         var exitAreaIndex = 0;
         var exitAreas = [];

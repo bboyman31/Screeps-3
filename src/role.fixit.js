@@ -35,7 +35,7 @@ var roleFixit = {
                         return (structure.hits < structure.hitsMax);
                     }
                 });
-                _.sortBy(structures, function(structure) { return structure.hits / structure.hitsMax; });
+                structures = _.sortBy(structures, function(structure) { return structure.hits / structure.hitsMax; });
                 creep.memory.repairTargetId = structures[0].id;
             }
 
