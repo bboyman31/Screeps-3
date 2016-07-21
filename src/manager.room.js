@@ -29,6 +29,8 @@ var managerRoom = {
                 this.initialiseWalls(room);
                 room.memory.initWallsTick = Game.time + 100;
             }
+
+            this.renewCreeps(room);
         }
     },
 
@@ -186,6 +188,15 @@ var managerRoom = {
                 } else {
                     room.createConstructionSite(exitArea[i].x, exitArea[i].y, STRUCTURE_WALL);
                 }
+            }
+        });
+    },
+
+    renewCreeps: function(room) {
+        var creeps = room.memory.home.pos.findInRange(FIND_MY_CREEPS, 1);
+        creeps.forEach(function (creep) {
+            if (creep.ticksToLive < 1000) {
+                room.memory.home.renewCreep(creep);
             }
         });
     }
