@@ -43,10 +43,18 @@ var roomManager = {
        
     /** @param {Room} room **/
     initRoads: function(room) {
-        let goals = _.map(room.find(FIND_SOURCES), function(source) {  
-            // We can't actually walk on sources-- set `range` to 1 so we path next to it.
+        let goals = [];
+
+        let sourceGoals = _.map(room.find(FIND_SOURCES), function(source) {  
             return { pos: source.pos, range: 1 };
         });
+        
+        let rampartGoals = _.map(room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }), function(source) {  
+            return { pos: source.pos, range: 1 };
+        });
+
+        goals = goals.concat(sourceGoals);
+        goals = goals.concat(rampartGoals);
         goals = goals.concat([{ pos: room.controller.pos, range: 1 }]);
 
         goals.forEach(function(goal) {
