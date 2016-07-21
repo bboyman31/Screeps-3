@@ -41,7 +41,7 @@ var managerRoom = {
                 let path = Game.getObjectById(source.id).pos.findPathTo(room.memory.home);
             }
         });
-    }
+    },
 
     initSources: function(room) {
         var sources = room.find(FIND_SOURCES);
