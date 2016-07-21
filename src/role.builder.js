@@ -4,6 +4,7 @@ var roleBuilder = {
         creep.memory.targetIndex = creep.room.getUnderworkedSource();
         creep.room.memory.sources[creep.memory.targetIndex].workerCount++;
         creep.memory.building = false;
+        creep.memory.buildTargetId = undefined;
         console.log('[' + creep.name + '] Let\'s get building!');
     },
     
@@ -14,6 +15,7 @@ var roleBuilder = {
             creep.memory.targetIndex = undefined;
         }
         creep.memory.building = undefined;
+        creep.memory.buildTargetId = undefined;
     },
     
     /** @param {Creep} creep **/
@@ -26,11 +28,16 @@ var roleBuilder = {
             creep.memory.building = true;
         }
 
-        if(creep.memory.building) {
-            var sites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
-            let result = creep.build(sites[0]);
+        if (creep.memory.building) {
+            if (!creep.memory.buildTargetId) {
+                let constructionSites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+                creep.memory.buildTargetId = constructionSites[0];
+            }
+
+            let constructionSite = Game.getObjectById(creep.memory.buildTargetId);
+            let result = creep.build(constructionSite);
             if (result == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sites[0]);
+                creep.moveTo(constructionSite);
             } else if (result < 0) { // Not ok, cancel construction.
                 return false;
             }
