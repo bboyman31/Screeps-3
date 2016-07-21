@@ -25,9 +25,18 @@ var roleManager = {
         var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader'];
 
         if (_.size(Game.creeps) < creepPriority.length) {
-            var creepName = mainSpawn.createCreep([WORK,CARRY,MOVE], 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
-            if (creepName !== ERR_BUSY && creepName !== ERR_NOT_ENOUGH_ENERGY) {
-                console.log('[RoleManager] Spawning new creep: ' + creepName);
+            var extensions = _.size(mainSpawn.room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
+
+            var body = [WORK, CARRY, MOVE];
+            if (extensions >= 5) {
+                body = [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
+            }
+
+            if (mainSpawn.canCreateCreep(body) === OK) {
+                var creepName = mainSpawn.createCreep(body, 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
+                if (creepName !== ERR_BUSY && creepName !== ERR_NOT_ENOUGH_ENERGY) {
+                    console.log('[RoleManager] Spawning new creep: ' + creepName);
+                }
             }
         }
 
