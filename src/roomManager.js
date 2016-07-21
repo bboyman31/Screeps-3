@@ -51,7 +51,7 @@ var roomManager = {
         });
         
         let rampartGoals = _.map(room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }), function(source) {  
-            return { pos: source.pos, range: 1 };
+            return { pos: source.pos, range: 0 };
         });
 
         goals = goals.concat(sourceGoals);
