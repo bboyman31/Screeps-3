@@ -39,7 +39,6 @@ var managerRoom = {
         room.memory.sources.forEach(function (source) {
             if (!source.containerId && !source.containerBuilding) {
                 let path = Game.getObjectById(source.id).pos.findPathTo(room.memory.home.pos.x, room.memory.home.pos.y);
-                room.memory.testPath = path;
                 if (path.length >= 3) {
                     if (room.createConstructionSite(path[1].x, path[1].y, STRUCTURE_CONTAINER) === OK) {
                         source.containerBuilding = true;
