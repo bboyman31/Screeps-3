@@ -13,9 +13,7 @@ var managerRoom = {
                 }
             }
 
-            if (!room.memory.sources) {
-                this.initSources(room);
-            }
+            this.checkSources(room);
             
             if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
                 this.initExtensions(room);
@@ -34,11 +32,22 @@ var managerRoom = {
         }
     },
 
+    checkSources: function(room) {
+        if (!room.memory.sources) {
+            this.initSources(room);
+        }
+        room.memory.sources.forEach(function (source) {
+            if (!source.containerId && !source.containerBuilding) {
+                let path = Game.getObjectById(source.id).pos.findPathTo(room.memory.home);
+            }
+        });
+    }
+
     initSources: function(room) {
         var sources = room.find(FIND_SOURCES);
         room.memory.sources = new Array(sources.length);
         for (var i = 0; i < sources.length; i++) {
-            room.memory.sources[i] = { id: sources[i].id, workerCount: 0, containerId: null };
+            room.memory.sources[i] = { id: sources[i].id, workerCount: 0, containerId: null, containerBuilding: false };
         }
     },
     
