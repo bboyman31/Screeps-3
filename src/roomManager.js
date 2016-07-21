@@ -1,4 +1,5 @@
 var helperWall = require('helper.wall');
+var helperRoad = require('helper.road');
 
 var roomManager = {
     run: function() {
@@ -14,9 +15,9 @@ var roomManager = {
                 room.memory.initExtensions = true;
             }
             
-            if (!room.memory.initRoads) {
-                this.checkSourceRoads(room);
-                room.memory.initRoads = true;
+            if (!room.memory.initRoadTick || room.memory.initRoadTick >= Game.time) {
+                this.initRoads(room);
+                room.memory.initRoadTick = Game.time + 50;
             }
 
             if (!room.memory.initWalls) {
@@ -39,17 +40,9 @@ var roomManager = {
         if (extensions < 9) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
         if (extensions < 10) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION); 
     },
-    
+       
     /** @param {Room} room **/
-    checkHostileSites: function(room) {
-        var hostileSites = room.find(FIND_HOSTILE_CONSTRUCTION_SITES);
-        for (var i = 0; i < hostileSites.length; i++) {
-            hostileSites[i].remove();
-        }
-    },
-    
-    /** @param {Room} room **/
-    checkSourceRoads: function(room) {
+    initRoads: function(room) {
         let goals = _.map(room.find(FIND_SOURCES), function(source) {  
             // We can't actually walk on sources-- set `range` to 1 so we path next to it.
             return { pos: source.pos, range: 1 };
@@ -80,12 +73,11 @@ var roomManager = {
             let path = pathResult.path;
             for (let i = 0; i < path.length; i++) {
                 room.createConstructionSite(path[i].x, path[i].y, STRUCTURE_ROAD);
-                //room.createConstructionSite(path[i].x + 1, path[i].y, STRUCTURE_ROAD);
-                //room.createConstructionSite(path[i].x - 1, path[i].y, STRUCTURE_ROAD);
-                //room.createConstructionSite(path[i].x, path[i].y + 1, STRUCTURE_ROAD);
-                //room.createConstructionSite(path[i].x, path[i].y - 1, STRUCTURE_ROAD);
             }
         });
+
+        // Create a ring road around the spawn.
+        helperRoad.createRingRoad(room, room.memory.home.pos);
     },
 
     initialiseWalls: function(room) {
