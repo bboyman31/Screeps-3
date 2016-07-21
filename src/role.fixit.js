@@ -45,6 +45,7 @@ var roleFixit = {
             } else if (result < 0) { // Not ok, cancel repair.
                 return false;
             }
+            if (structure.hits === structure.hitsMax) return false; // We're done repairing.
         } else {
             if (creep.memory.targetIndex === undefined) return false; // Should have target, but if not let's cancel task.
             var source = Game.getObjectById(creep.room.memory.sources[creep.memory.targetIndex].id);
