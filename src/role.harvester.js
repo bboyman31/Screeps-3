@@ -3,6 +3,7 @@ var roleHarvester = {
     init: function(creep) {
         creep.memory.targetIndex = creep.room.getUnderworkedSource();
         creep.room.memory.sources[creep.memory.targetIndex].workerCount++;
+        creep.memory.unloading = false;
         console.log('[' + creep.name + '] POWER OVERWHELMING!');
     },
     
@@ -12,11 +13,20 @@ var roleHarvester = {
             roomMemory.sources[creepMemory.targetIndex].workerCount--;
             creepMemory.targetIndex = undefined;
         }
+        creepMemory.unloading = undefined;
     },
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        if (creep.carry.energy < creep.carryCapacity) {
+        if (creep.memory.unloading && creep.carry.energy == 0) {
+            // Finished task
+            return false;
+        }
+        if (!creep.memory.unloading && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.unloading = true;
+        }
+
+        if (!creep.memory.unloading) {
             var source = Game.getObjectById(creep.room.memory.sources[creep.memory.targetIndex].id);
             if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
