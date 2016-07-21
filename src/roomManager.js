@@ -6,8 +6,11 @@ var roomManager = {
         for (var name in Game.rooms) {
             var room = Game.rooms[name];
             
-            for (var name in Game.spawns) {
-                room.memory.home = Game.spawns[name];
+            if (!room.memory.home) {
+                for (var name in Game.spawns) {
+                    room.memory.home = Game.spawns[name];
+                    break;
+                }
             }
             
             if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
