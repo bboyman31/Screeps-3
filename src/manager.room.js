@@ -39,6 +39,7 @@ var managerRoom = {
         room.memory.sources.forEach(function (source) {
             if (!source.containerId && !source.containerBuilding) {
                 let path = Game.getObjectById(source.id).pos.findPathTo(room.memory.home.pos.x, room.memory.home.pos.y);
+                room.memory.testPath = path;
             }
         });
     },
