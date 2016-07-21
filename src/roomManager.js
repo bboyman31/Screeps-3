@@ -10,24 +10,25 @@ var roomManager = {
                 room.memory.home = Game.spawns[name];
             }
             
-            if (!room.memory.initExtensions) {
-                this.checkExtensions(room);
-                room.memory.initExtensions = true;
+            if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
+                this.initExtensions(room);
+                room.memory.initExtensionsTick = Game.time + 150;
             }
             
-            if (!room.memory.initRoadTick || room.memory.initRoadTick >= Game.time) {
+            if (!room.memory.initRoadsTick || Game.time >= room.memory.initRoadsTick) {
                 this.initRoads(room);
-                room.memory.initRoadTick = Game.time + 50;
+                room.memory.initRoadsTick = Game.time + 50;
             }
 
-            if (!room.memory.initWalls) {
+            if (!room.memory.initWallsTick || Game.time >= room.memory.initWallsTick) {
                 this.initialiseWalls(room);
+                room.memory.initWallsTick = Game.time + 100;
             }
         }
     },
     
     /** @param {Room} room **/
-    checkExtensions: function(room) {
+    initExtensions: function(room) {
         var extensions = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
         if (extensions < 1) room.createConstructionSite(room.memory.home.pos.x - 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
         if (extensions < 2) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
@@ -158,8 +159,6 @@ var roomManager = {
                 }
             }
         });
-
-        room.memory.initWalls = true;
     }
 };
 
