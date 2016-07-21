@@ -1,13 +1,6 @@
 var roleBuilder = {
     /** @param {Creep} creep **/
     init: function(creep) {
-        if (!creep.room.memory.sources) {
-            var sources = creep.room.find(FIND_SOURCES);
-            creep.room.memory.sources = new Array(sources.length);
-            for (var i = 0; i < sources.length; i++) {
-                creep.room.memory.sources[i] = sources[i].id;
-            }
-        }
         if (!creep.room.memory.sourceWorkers) {
             creep.room.memory.sourceWorkers = new Array(creep.room.memory.sources.length);
             for (var i = 0; i < creep.room.memory.sourceWorkers.length; i++) {

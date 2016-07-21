@@ -12,6 +12,10 @@ var roomManager = {
                     break;
                 }
             }
+
+            if (!room.memory.sources) {
+                this.initSources(room);
+            }
             
             if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
                 this.initExtensions(room);
@@ -27,6 +31,14 @@ var roomManager = {
                 this.initialiseWalls(room);
                 room.memory.initWallsTick = Game.time + 100;
             }
+        }
+    },
+
+    initSources: function(room) {
+        var sources = room.find(FIND_SOURCES);
+        room.memory.sources = new Array(sources.length);
+        for (var i = 0; i < sources.length; i++) {
+            room.memory.sources[i] = sources[i].id;
         }
     },
     
