@@ -1,28 +1,16 @@
 var roleBuilder = {
     /** @param {Creep} creep **/
     init: function(creep) {
-        if (!creep.room.memory.sourceWorkers) {
-            creep.room.memory.sourceWorkers = new Array(creep.room.memory.sources.length);
-            for (var i = 0; i < creep.room.memory.sourceWorkers.length; i++) {
-                creep.room.memory.sourceWorkers[i] = 0;
-            }
-        }
-        creep.memory.targetIndex = undefined;
-        for (var i = 0; i < creep.room.memory.sourceWorkers.length; i++) {
-            if (creep.memory.targetIndex === undefined || creep.room.memory.sourceWorkers[i] < creep.room.memory.sourceWorkers[creep.memory.targetIndex]) {
-                creep.memory.targetIndex = i;
-            }
-        }
-        creep.room.memory.sourceWorkers[creep.memory.targetIndex]++;
+        creep.memory.targetIndex = creep.room.getUnderworkedSource();
+        creep.room.memory.sources[creep.memory.targetIndex].workerCount++;
         creep.memory.building = false;
-
         console.log('[' + creep.name + '] Let\'s get building!');
     },
     
     /** @param {Creep} creep **/
     cleanup: function(creep) {
         if (creep.memory.targetIndex !== undefined) {
-            creep.room.memory.sourceWorkers[creep.memory.targetIndex]--;
+            creep.room.memory.sources[creep.memory.targetIndex].workerCount--;
             creep.memory.targetIndex = undefined;
         }
         creep.memory.building = undefined;
