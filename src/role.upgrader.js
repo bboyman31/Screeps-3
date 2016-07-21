@@ -8,12 +8,12 @@ var roleUpgrader = {
     },
     
     /** @param {Creep} creep **/
-    cleanup: function(creep) {
-        if (creep.memory.targetIndex !== undefined) {
-            creep.room.memory.sources[creep.memory.targetIndex].workerCount--;
-            creep.memory.targetIndex = undefined;
+    cleanup: function(creepMemory, roomMemory) {
+        if (creepMemory.targetIndex !== undefined) {
+            roomMemory.sources[creepMemory.targetIndex].workerCount--;
+            creepMemory.targetIndex = undefined;
         }
-        creep.memory.upgrading = undefined;
+        creepMemory.upgrading = undefined;
     },
     
     /** @param {Creep} creep **/

@@ -5,17 +5,27 @@ var roleFixit = require('role.fixit');
 
 var managerRole = {
     run: function() {
+        var mainSpawn = undefined;
+        var room = undefined;
+
+        for (var name in Game.spawns) {
+            mainSpawn = Game.spawns[name];
+            room = mainSpawn.room;
+            break;
+        }
+
         // Always place this memory cleaning code at the very top of your main loop!
         for(var name in Memory.creeps) {
-            if(!Game.creeps[name]) {
+            if (!Game.creeps[name]) {
+                let creepMemory = Memory.creeps[name];
+                let creepRoleHandler = this.getRoleHandler(creepMemory);
+                if (creepRoleHandler) {
+                    creepRoleHandler.cleanup(creepMemory, room.memory);
+                }
+                creepMemory = undefined;
                 delete Memory.creeps[name];
                 console.log('[RoleManager] Clearing non-existing creep memory:', name);
             }
-        }
-
-        var mainSpawn;
-        for (var name in Game.spawns) {
-            mainSpawn = Game.spawns[name];
         }
 
         if (!mainSpawn.memory.creepNum) {
@@ -116,11 +126,21 @@ var managerRole = {
             
             if (creep.memory.role !== 'idle') {
                 if (!roleHandler.run(creep)) {
-                    roleHandler.cleanup(creep);
+                    roleHandler.cleanup(creep.memory, room.memory);
                     creep.memory.role = 'idle';
                 }
             }
         }
+    },
+
+    getRoleHandler: function(creepMemory) {
+        switch (creepMemory.role) {
+            case 'harvester' : return roleHarvester;
+            case 'upgrader' : return roleUpgrader;
+            case 'builder' : return roleBuilder;
+            case 'fixit' : return roleFixit;
+        }
+        return null;
     }
 };
 
