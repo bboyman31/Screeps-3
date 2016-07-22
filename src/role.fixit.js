@@ -61,7 +61,7 @@ var roleFixit = {
                 if (creep.room.memory.containerCount) {
                     let container = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
                         filter: function(structure) {
-                            return structure.structureType === STRUCTURE_CONTAINER;
+                            return (structure.structureType == STRUCTURE_CONTAINER);
                         }
                     });
                     creep.memory.targetId = container.id;
