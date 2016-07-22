@@ -65,6 +65,8 @@ var managerRole = {
                 creepRoles['upgrader'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader').length;
                 creepRoles['builder'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder').length;
                 creepRoles['fixit'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'fixit').length;
+                creepRoles['miner'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner').length;
+                creepRoles['collector'] = _.filter(Game.creeps, (creep) => creep.memory.role == 'collector').length;
                 
                 var desiredRole = 'idle'
                 for (var i = 0; i < creepPriority.length; i++) {
