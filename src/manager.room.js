@@ -52,6 +52,7 @@ var managerRoom = {
                 for (let i = 0; i < structures.length; i++) {
                     if (structures[i].structureType === STRUCTURE_CONTAINER) {
                         source.containerId = structures[i].id;
+                        source.containerBuilding = false;
                         break;
                     }
                 }
