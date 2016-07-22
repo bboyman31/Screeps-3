@@ -27,7 +27,16 @@ var managerRole = {
             mainSpawn.memory.creepNum = 0;
         }
 
+        let sourceContainers = 0;
+        room.memory.sources.forEach(function(source) {
+            if (source.containerId) sourceContainers++;
+        });
+
         var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader'];
+        switch (sourceContainers) {
+            case 1 : creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
+            case 2 : creepPriority = ['miner', 'collector', 'miner', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'collector', 'collector', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
+        }
 
         if (_.size(Game.creeps) < creepPriority.length) {
             var extensions = _.size(mainSpawn.room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));

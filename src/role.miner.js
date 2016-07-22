@@ -6,7 +6,7 @@ var roleMiner = {
         creep.memory.targetIndex = creep.room.getUnderMinedSource();
         sourceHelper.addMiner(creep.room.memory.sources[creep.memory.targetIndex]);
         creep.memory.unloading = false;
-        console.log('[' + creep.name + '] POWER OVERWHELMING!');
+        console.log('[' + creep.name + '] Hi ho, hi ho!');
     },
     
     /** @param {Creep} creep **/
