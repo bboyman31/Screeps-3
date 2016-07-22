@@ -7,6 +7,7 @@ var roleUpgrader = {
         sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetIndex]);
         creep.memory.upgrading = false;
         console.log('[' + creep.name + '] Hmmm... Upgrades.');
+        creep.say('Hmmm... Upgrades.');
     },
     
     /** @param {Creep} creep **/

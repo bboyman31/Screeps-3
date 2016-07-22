@@ -8,6 +8,7 @@ var roleBuilder = {
         creep.memory.building = false;
         creep.memory.buildTargetId = undefined;
         console.log('[' + creep.name + '] Let\'s get building!');
+        creep.say('Let\'s get building!');
     },
     
     /** @param {Creep} creep **/

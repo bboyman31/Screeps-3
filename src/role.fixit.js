@@ -8,6 +8,7 @@ var roleFixit = {
         creep.memory.repairing = false;
         creep.memory.repairTargetId = undefined;
         console.log('[' + creep.name + '] Fixit! Fixit! Fixit!');
+        creep.say('Fixit! Fixit! Fixit!');
     },
     
     /** @param {Creep} creep **/

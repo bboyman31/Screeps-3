@@ -19,6 +19,7 @@ var roleCollector = {
         creep.memory.collecting = true;
 
         console.log('[' + creep.name + '] Gimme the money!');
+        creep.say('Gimme the money!');
     },
     
     /** @param {Creep} creep **/
