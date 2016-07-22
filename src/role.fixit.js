@@ -62,6 +62,7 @@ var roleFixit = {
                     let container = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                         filter: { structureType: STRUCTURE_CONTAINER }
                     });
+                    if (!container) return false; // TODO Work out why this fires.
                     creep.memory.targetId = container.id;
                 } else {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
