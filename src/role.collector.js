@@ -34,6 +34,7 @@ var roleCollector = {
             let result = creep.withdraw(container, RESOURCE_ENERGY);
             if (result === ERR_NOT_IN_RANGE) {
                 creep.moveTo(container);
+                return true;
             } else if (result === OK) {
                 creep.memory.collecting = false;
                 return true;
