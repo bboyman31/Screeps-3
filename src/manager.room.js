@@ -50,6 +50,8 @@ var managerRoom = {
         if (!room.memory.sources) {
             this.initSources(room);
         }
+
+        let containerCount = 0;
         room.memory.sources.forEach(function (source) {
             if (!source.containerId && !source.containerBuilding) {
                 let path = Game.getObjectById(source.id).pos.findPathTo(room.memory.home.pos.x, room.memory.home.pos.y);
@@ -68,8 +70,11 @@ var managerRoom = {
                         break;
                     }
                 }
+            } else if (source.containerId) {
+                containerCount++;
             }
         });
+        room.memory.containerCount;
     },
 
     initSources: function(room) {
