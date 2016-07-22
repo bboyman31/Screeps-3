@@ -8,7 +8,7 @@ var roleFixit = {
         creep.memory.repairing = false;
         creep.memory.repairTargetId = undefined;
         console.log('[' + creep.name + '] Fixit! Fixit! Fixit!');
-        creep.say('Fixit! Fixit! Fixit!');
+        creep.say('Fixit!');
     },
     
     /** @param {Creep} creep **/
@@ -59,10 +59,8 @@ var roleFixit = {
         } else {
             if (!creep.memory.targetId) {
                 if (creep.room.memory.containerCount) {
-                    let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                        filter: function(structure) {
-                            return (structure.structureType === STRUCTURE_CONTAINER);
-                        }
+                    let container = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                        filter: { structure.structureType: STRUCTURE_CONTAINER }
                     });
                     creep.memory.targetId = container.id;
                 } else {
