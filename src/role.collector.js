@@ -12,7 +12,7 @@ var roleCollector = {
         creep.memory.targetId = undefined;
         if (containers.length) {
             containers = _.sortBy(containers, function(container) {
-                _.sum(container.store);
+                return _.sum(container.store) * -1;
             });
             creep.memory.targetId = containers[0].id;
         }

@@ -66,7 +66,22 @@ var roleFixit = {
                     if (!container) return false; // TODO Work out why this fires.
                     creep.memory.targetId = container.id;
                     */
-                    creep.memory.targetId = creep.room.memory.sources[0].containerId;
+
+                    let containers = [];
+                    creep.room.memory.sources.forEach(function(source) {
+                        if (source.containerId) {
+                            containers[containers.length] = Game.getObjectById(source.containerId);
+                        }
+                    });
+
+                    if (containers.length) {
+                        containers = _.sortBy(containers, function(container) {
+                            return _.sum(container.store) * -1;
+                        });
+                        creep.memory.targetId = containers[0].id;
+                    }
+
+                    //creep.memory.targetId = creep.room.memory.sources[0].containerId;
                 } else {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
                     creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
