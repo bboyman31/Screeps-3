@@ -59,9 +59,9 @@ var roleFixit = {
         } else {
             if (!creep.memory.targetId) {
                 if (creep.room.memory.containerCount) {
-                    var container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                    let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                         filter: function(structure) {
-                            return (structure.structureType === STRUCTURE_CONTAINER && structure.my);
+                            return (structure.structureType === STRUCTURE_CONTAINER);
                         }
                     });
                     creep.memory.targetId = container.id;
