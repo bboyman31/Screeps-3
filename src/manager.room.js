@@ -1,3 +1,4 @@
+var roleManager = require('manager.role');
 var helperWall = require('helper.wall');
 var helperRoad = require('helper.road');
 
@@ -6,31 +7,42 @@ var managerRoom = {
         for (var name in Game.rooms) {
             var room = Game.rooms[name];
             
-            if (!room.memory.home) {
-                for (var name in Game.spawns) {
-                    room.memory.home = Game.spawns[name];
-                    break;
+            if (room.controller.my) {
+
+                if (!room.memory.home) {
+                    for (var name in Game.spawns) {
+                        let spawn = Game.spawns[name];
+                        if (spawn.room.name === room.name) {
+                            room.memory.home = spawn;
+                            break;
+                        }
+                    }
+                }
+
+                if (room.memory.home) {
+
+                    this.checkSources(room);
+                    
+                    if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
+                        this.initExtensions(room);
+                        room.memory.initExtensionsTick = Game.time + 150;
+                    }
+                    
+                    if (!room.memory.initRoadsTick || Game.time >= room.memory.initRoadsTick) {
+                        this.initRoads(room);
+                        room.memory.initRoadsTick = Game.time + 50;
+                    }
+
+                    if (!room.memory.initWallsTick || Game.time >= room.memory.initWallsTick) {
+                        this.initialiseWalls(room);
+                        room.memory.initWallsTick = Game.time + 100;
+                    }
+
+                    this.renewCreeps(room);
+
+                    roleManager.run(room);
                 }
             }
-
-            this.checkSources(room);
-            
-            if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
-                this.initExtensions(room);
-                room.memory.initExtensionsTick = Game.time + 150;
-            }
-            
-            if (!room.memory.initRoadsTick || Game.time >= room.memory.initRoadsTick) {
-                this.initRoads(room);
-                room.memory.initRoadsTick = Game.time + 50;
-            }
-
-            if (!room.memory.initWallsTick || Game.time >= room.memory.initWallsTick) {
-                this.initialiseWalls(room);
-                room.memory.initWallsTick = Game.time + 100;
-            }
-
-            this.renewCreeps(room);
         }
     },
 
@@ -64,7 +76,14 @@ var managerRoom = {
         var sources = room.find(FIND_SOURCES);
         room.memory.sources = new Array(sources.length);
         for (var i = 0; i < sources.length; i++) {
-            room.memory.sources[i] = { id: sources[i].id, workerCount: 0, containerId: null, containerBuilding: false, containerPos: null };
+            room.memory.sources[i] = {
+                id: sources[i].id,
+                workerCount: 0,
+                minerCount: 0,
+                containerId: null,
+                containerBuilding: false,
+                containerPos: null
+            };
         }
     },
     

@@ -2,17 +2,12 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleFixit = require('role.fixit');
+var roleMiner = require('role.miner');
+var roleCollector = require('role.collector');
 
 var managerRole = {
-    run: function() {
-        var mainSpawn = undefined;
-        var room = undefined;
-
-        for (var name in Game.spawns) {
-            mainSpawn = Game.spawns[name];
-            room = mainSpawn.room;
-            break;
-        }
+    run: function(room) {
+        var mainSpawn = Game.getObjectById(room.memory.home.id);
 
         // Always place this memory cleaning code at the very top of your main loop!
         for(var name in Memory.creeps) {
@@ -52,13 +47,8 @@ var managerRole = {
 
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
-            var roleHandler = undefined;
-            switch (creep.memory.role) {
-                case 'harvester' : roleHandler = roleHarvester; break;
-                case 'upgrader' : roleHandler = roleUpgrader; break;
-                case 'builder' : roleHandler = roleBuilder; break;
-                case 'fixit' : roleHandler = roleFixit; break;
-            }
+
+            var roleHandler = this.getRoleHandler(creep.memory);
             
             if (!roleHandler) {
                 var creepRoles = [];
@@ -112,12 +102,7 @@ var managerRole = {
                 creep.memory.role = desiredRole;
                 
                 if (creep.memory.role !== 'idle') {
-                    switch (creep.memory.role) {
-                        case 'harvester' : roleHandler = roleHarvester; break;
-                        case 'upgrader' : roleHandler = roleUpgrader; break;
-                        case 'builder' : roleHandler = roleBuilder; break;
-                        case 'fixit' : roleHandler = roleFixit; break;
-                    }
+                    roleHandler = this.getRoleHandler(creep.memory);
                     roleHandler.init(creep);
                 } else {
                     creep.suicide();    
@@ -139,6 +124,8 @@ var managerRole = {
             case 'upgrader' : return roleUpgrader;
             case 'builder' : return roleBuilder;
             case 'fixit' : return roleFixit;
+            case 'miner' : return roleMiner;
+            case 'collector' : return roleCollector;
         }
         return null;
     }
