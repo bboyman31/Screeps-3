@@ -7,7 +7,7 @@ var roleHarvester = {
         sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetIndex]);
         creep.memory.unloading = false;
         console.log('[' + creep.name + '] POWER OVERWHELMING!');
-        creep.say('POWER OVERWHELMING!');
+        creep.say('OMNOM!');
     },
     
     /** @param {Creep} creep **/

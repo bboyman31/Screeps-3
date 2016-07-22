@@ -7,7 +7,7 @@ var roleMiner = {
         sourceHelper.addMiner(creep.room.memory.sources[creep.memory.targetIndex]);
         creep.memory.unloading = false;
         console.log('[' + creep.name + '] Hi ho, hi ho!');
-        creep.say('Hi ho, hi ho!');
+        creep.say('MINING!');
     },
     
     /** @param {Creep} creep **/
