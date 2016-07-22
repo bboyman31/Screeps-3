@@ -74,7 +74,7 @@ var managerRoom = {
                 containerCount++;
             }
         });
-        room.memory.containerCount;
+        room.memory.containerCount = containerCount;
     },
 
     initSources: function(room) {
