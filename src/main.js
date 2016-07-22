@@ -7,7 +7,7 @@ module.exports.loop = function () {
 Room.prototype.getUnderworkedSource = function() {
 	let sourceIndex = undefined;
     for (var i = 0; i < this.memory.sources.length; i++) {
-    	this.memory.sources.length
+    	if (!this.memory.sources[i].workerCount) this.memory.sources[i].workerCount = 0;
         if (sourceIndex === undefined || this.memory.sources[i].workerCount < this.memory.sources[sourceIndex].workerCount) {
             sourceIndex = i;
         }
@@ -18,7 +18,7 @@ Room.prototype.getUnderworkedSource = function() {
 Room.prototype.getUnderMinedSource = function() {
 	let sourceIndex = undefined;
     for (var i = 0; i < this.memory.sources.length; i++) {
-    	this.memory.sources.length
+    	if (!this.memory.sources[i].minerCount) this.memory.sources[i].minerCount = 0;
         if (sourceIndex === undefined || this.memory.sources[i].minerCount < this.memory.sources[sourceIndex].minerCount) {
             sourceIndex = i;
         }
