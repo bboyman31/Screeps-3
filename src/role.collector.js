@@ -42,38 +42,40 @@ var roleCollector = {
                 creep.memory.collecting = false;
                 return true;
             }
-            return false;
         } else {
-            let targets = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-                        structure.energy < structure.energyCapacity;
-                }
-            });
-            if (targets.length > 0) {
-                if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0]);
-                }
-            } else {
-                targets = creep.room.find(FIND_STRUCTURES, {
+            if (creep.carry.energy > 0) {
+                let targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_SPAWN);
+                        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
+                            structure.energy < structure.energyCapacity;
                     }
                 });
                 if (targets.length > 0) {
-                    var home = targets[0];
-                    var dx = creep.pos.x - home.pos.x;
-                    var dy = creep.pos.y - home.pos.y;
-                    var distanceSq = dx * dx + dy * dy;
-                    if (distanceSq > 2) {
-                        creep.moveTo(home);
-                    } else {
-                        return false;
+                    if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targets[0]);
+                    }
+                } else {
+                    targets = creep.room.find(FIND_STRUCTURES, {
+                        filter: (structure) => {
+                            return (structure.structureType == STRUCTURE_SPAWN);
+                        }
+                    });
+                    if (targets.length > 0) {
+                        var home = targets[0];
+                        var dx = creep.pos.x - home.pos.x;
+                        var dy = creep.pos.y - home.pos.y;
+                        var distanceSq = dx * dx + dy * dy;
+                        if (distanceSq > 2) {
+                            creep.moveTo(home);
+                        } else {
+                            return false;
+                        }
                     }
                 }
+                return true;
             }
         }
-        return true;
+        return false;
     }
 };
 
