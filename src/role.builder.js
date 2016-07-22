@@ -33,7 +33,12 @@ var roleBuilder = {
         if (creep.memory.building) {
             if (!creep.memory.buildTargetId) {
                 let constructionSites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
-                creep.memory.buildTargetId = constructionSites[0].id;
+                if (constructionSites.length) {
+                    creep.memory.buildTargetId = constructionSites[0].id;
+                } else {
+                    // Our build target has disappeared so we'll cancel our task.
+                    return false;
+                }
             }
 
             let constructionSite = Game.getObjectById(creep.memory.buildTargetId);
