@@ -96,8 +96,11 @@ var roleFixit = {
                     }
                 } else {
                     let container = Game.getObjectById(creep.memory.targetId);
-                    if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    let result = creep.withdraw(container, RESOURCE_ENERGY);
+                    if (result == ERR_NOT_IN_RANGE) {
                         creep.moveTo(container);
+                    } else if (result == ERR_NOT_ENOUGH_RESOURCES) {
+                        return false;
                     }
                 }
             }
