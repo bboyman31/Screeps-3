@@ -3,8 +3,8 @@ var sourceHelper = require('helper.source');
 var roleFixit = {
     /** @param {Creep} creep **/
     init: function(creep) {
-        creep.memory.targetIndex = creep.room.getUnderworkedSource();
-        sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetIndex]);
+        creep.memory.targetSourceIndex = undefined;
+        creep.memory.targetId = undefined;
         creep.memory.repairing = false;
         creep.memory.repairTargetId = undefined;
         console.log('[' + creep.name + '] Fixit! Fixit! Fixit!');
@@ -13,10 +13,16 @@ var roleFixit = {
     
     /** @param {Creep} creep **/
     cleanup: function(creepMemory, roomMemory) {
+        // TODO Remove the targetIndex stuff (left over from before).
         if (creepMemory.targetIndex !== undefined) {
             sourceHelper.removeWorker(roomMemory.sources[creepMemory.targetIndex]);
             creepMemory.targetIndex = undefined;
         }
+        if (creepMemory.targetSourceIndex !== undefined) {
+            sourceHelper.removeWorker(roomMemory.sources[creepMemory.targetSourceIndex]);
+            creepMemory.targetSourceIndex = undefined;
+        }
+        creepMemory.targetId = undefined;
         creepMemory.repairing = undefined;
         creepMemory.repairTargetId = undefined;
     },
@@ -51,10 +57,32 @@ var roleFixit = {
             }
             if (structure.hits === structure.hitsMax) return false; // We're done repairing.
         } else {
-            if (creep.memory.targetIndex === undefined) return false; // Should have target, but if not let's cancel task.
-            var source = Game.getObjectById(creep.room.memory.sources[creep.memory.targetIndex].id);
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source);
+            if (!creep.memory.targetId) {
+                if (creep.room.memory.containerCount) {
+                    let container = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+                        filter: function(structure) {
+                            return structure.structureType === STRUCTURE_CONTAINER;
+                        }
+                    });
+                    creep.memory.targetId = containerId;
+                } else {
+                    creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
+                    creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
+                    sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetSourceIndex]);
+                }
+            }
+            if (creep.memory.targetId) {
+                if (creep.memory.targetSourceIndex) {
+                    let source = Game.getObjectById(targetId);
+                    if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(source);
+                    }
+                } else {
+                    let container = Game.getObjectById(targetId);
+                    if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(container);
+                    }
+                }
             }
         }
         return true;
