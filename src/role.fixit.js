@@ -59,11 +59,14 @@ var roleFixit = {
         } else {
             if (!creep.memory.targetId) {
                 if (creep.room.memory.containerCount) {
-                    let container = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    /*
+                    let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                         filter: { structureType: STRUCTURE_CONTAINER }
                     });
                     if (!container) return false; // TODO Work out why this fires.
                     creep.memory.targetId = container.id;
+                    */
+                    creep.memory.targetId = creep.room.sources[0].containerId;
                 } else {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
                     creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
