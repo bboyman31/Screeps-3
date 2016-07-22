@@ -64,7 +64,7 @@ var roleFixit = {
                             return structure.structureType === STRUCTURE_CONTAINER;
                         }
                     });
-                    creep.memory.targetId = containerId;
+                    creep.memory.targetId = container.id;
                 } else {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
                     creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
