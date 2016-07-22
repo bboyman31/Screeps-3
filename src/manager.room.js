@@ -48,10 +48,9 @@ var managerRoom = {
                     }
                 }
             } else if (!source.containerId && source.containerBuilding) {
-                let structures = room.lookForAt(LOOK_STRUCTURES, source.containerPos) {
-                    if (structures.length) {
-                        
-                    }
+                let structures = room.lookForAt(LOOK_STRUCTURES, source.containerPos);
+                if (structures.length) {
+
                 }
             }
         });
