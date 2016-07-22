@@ -35,7 +35,7 @@ var managerRole = {
         var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader'];
         switch (sourceContainers) {
             case 1 : creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
-            case 2 : creepPriority = ['miner', 'collector', 'miner', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'collector', 'collector', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
+            case 2 : creepPriority = ['miner', 'collector', 'miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
         }
 
         if (_.size(Game.creeps) < creepPriority.length) {
