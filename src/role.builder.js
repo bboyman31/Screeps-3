@@ -1,8 +1,10 @@
+var sourceHelper = require('helper.source');
+
 var roleBuilder = {
     /** @param {Creep} creep **/
     init: function(creep) {
         creep.memory.targetIndex = creep.room.getUnderworkedSource();
-        creep.room.memory.sources[creep.memory.targetIndex].workerCount++;
+        sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetIndex]);
         creep.memory.building = false;
         creep.memory.buildTargetId = undefined;
         console.log('[' + creep.name + '] Let\'s get building!');
@@ -11,7 +13,7 @@ var roleBuilder = {
     /** @param {Creep} creep **/
     cleanup: function(creepMemory, roomMemory) {
         if (creepMemory.targetIndex !== undefined) {
-            roomMemory.sources[creepMemory.targetIndex].workerCount--;
+            sourceHelper.removeWorker(roomMemory.sources[creepMemory.targetIndex]);
             creepMemory.targetIndex = undefined;
         }
         creepMemory.building = undefined;

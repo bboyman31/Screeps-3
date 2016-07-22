@@ -1,8 +1,10 @@
+var sourceHelper = require('helper.source');
+
 var roleUpgrader = {
     /** @param {Creep} creep **/
     init: function(creep) {
         creep.memory.targetIndex = creep.room.getUnderworkedSource();
-        creep.room.memory.sources[creep.memory.targetIndex].workerCount++;
+        sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetIndex]);
         creep.memory.upgrading = false;
         console.log('[' + creep.name + '] Hmmm... Upgrades.');
     },
@@ -10,7 +12,7 @@ var roleUpgrader = {
     /** @param {Creep} creep **/
     cleanup: function(creepMemory, roomMemory) {
         if (creepMemory.targetIndex !== undefined) {
-            roomMemory.sources[creepMemory.targetIndex].workerCount--;
+            sourceHelper.removeWorker(roomMemory.sources[creepMemory.targetIndex]);
             creepMemory.targetIndex = undefined;
         }
         creepMemory.upgrading = undefined;

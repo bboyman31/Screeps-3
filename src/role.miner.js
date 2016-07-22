@@ -1,6 +1,6 @@
 var sourceHelper = require('helper.source');
 
-var roleHarvester = {
+var roleMiner = {
     /** @param {Creep} creep **/
     init: function(creep) {
         creep.memory.targetIndex = creep.room.getUnderworkedSource();
