@@ -71,12 +71,12 @@ var roleFixit = {
             }
             if (creep.memory.targetId) {
                 if (creep.memory.targetSourceIndex) {
-                    let source = Game.getObjectById(targetId);
+                    let source = Game.getObjectById(creep.memory.targetId);
                     if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source);
                     }
                 } else {
-                    let container = Game.getObjectById(targetId);
+                    let container = Game.getObjectById(creep.memory.targetId);
                     if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(container);
                     }
