@@ -66,7 +66,7 @@ var roleFixit = {
                     if (!container) return false; // TODO Work out why this fires.
                     creep.memory.targetId = container.id;
                     */
-                    creep.memory.targetId = creep.room.sources[0].containerId;
+                    creep.memory.targetId = creep.room.memory.sources[0].containerId;
                 } else {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
                     creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
