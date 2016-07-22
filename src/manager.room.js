@@ -44,8 +44,11 @@ var managerRoom = {
                 if (path.length >= 3) {
                     if (room.createConstructionSite(path[1].x, path[1].y, STRUCTURE_CONTAINER) === OK) {
                         source.containerBuilding = true;
+                        source.containerPos = room.getPositionAt(path[1].x, path[1].y);
                     }
                 }
+            } else if (!source.containerId && source.containerBuilding) {
+
             }
         });
     },
@@ -54,7 +57,7 @@ var managerRoom = {
         var sources = room.find(FIND_SOURCES);
         room.memory.sources = new Array(sources.length);
         for (var i = 0; i < sources.length; i++) {
-            room.memory.sources[i] = { id: sources[i].id, workerCount: 0, containerId: null, containerBuilding: false };
+            room.memory.sources[i] = { id: sources[i].id, workerCount: 0, containerId: null, containerBuilding: false, containerPos: null };
         }
     },
     
