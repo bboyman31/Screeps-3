@@ -264,6 +264,37 @@ var managerRoom = {
         });
     },
 
+    /** @param {Room} room **/
+    checkTowers: function(room) {
+        if (room.memory.phase >= 7) {
+            this.initialiseTowers(room);
+        }
+    },
+
+    /** @param {Room} room **/
+    initialiseTowers: function(room) {     
+        let goals = _.map(room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }), function(structure) {  
+            return { pos: source.pos, range: 0 };
+        });
+
+        if (goals.length) {
+            let pathResult = PathFinder.search(room.memory.home.pos, goals[0], {
+                plainCost: 1,
+                swampCost: 1,               
+                roomCallback: function(roomName) {
+                    return new PathFinder.CostMatrix;
+                }
+            });
+            
+            let path = pathResult.path;
+            let index = Math.floor(path.length / 2);
+
+            for (let i = 0; i < path.length; i++) {
+                room.createConstructionSite(path[index].x, path[index].y, STRUCTURE_TOWER);
+            }
+        }
+    },
+
     renewCreeps: function(room) {
         var spawn = Game.getObjectById(room.memory.home.id);
         var creeps = spawn.pos.findInRange(FIND_MY_CREEPS, 1);
@@ -290,7 +321,17 @@ var managerRoom = {
         if (room.memory.containerCount <= 0) return 4; // Separating the phases here allow us to change the creep roles depending number of containers.
         if (room.memory.containerCount <= 1) return 5; // Separating the phases here allow us to change the creep roles depending number of containers.
 
-        return 6; // Phase 6 is we build walls and ramparts
+        // Phase 6 is we build walls and ramparts
+        let rampartCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_RAMPART; } }));
+        let constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
+        if (rampartCount == 0 || constructionSiteCount > 0) return 6;
+
+        // Phase 7 is build a tower
+        let towerCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_TOWER; } }));
+        let constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
+        if (towerCount == 0 || constructionSiteCount > 0) return 7;
+
+        return 8; // And on the 8th day, we rested.
     }
 };
 
