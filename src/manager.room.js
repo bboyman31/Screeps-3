@@ -328,7 +328,7 @@ var managerRoom = {
 
         // Phase 7 is build a tower
         let towerCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_TOWER; } }));
-        let constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
+        constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
         if (towerCount == 0 || constructionSiteCount > 0) return 7;
 
         return 8; // And on the 8th day, we rested.
