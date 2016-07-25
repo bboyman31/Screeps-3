@@ -275,7 +275,7 @@ var managerRoom = {
     /** @param {Room} room **/
     initialiseTowers: function(room) {     
         let goals = _.map(room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }), function(structure) {  
-            return { pos: source.pos, range: 0 };
+            return { pos: structure.pos, range: 0 };
         });
 
         if (goals.length) {
