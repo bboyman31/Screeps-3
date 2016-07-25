@@ -42,7 +42,7 @@ var managerRole = {
             }
         }
 
-        if (_.size(Game.creeps) < creepPriority.length) {
+        if (creepCount < creepPriority.length) {
             var extensions = _.size(mainSpawn.room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
 
             var body = [WORK, CARRY, MOVE];
