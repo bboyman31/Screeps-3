@@ -9,6 +9,7 @@ var managerRoom = {
             
             if (room.controller.my) {
 
+                // Find the primary spawn in the room and set it as home.
                 if (!room.memory.home) {
                     for (var name in Game.spawns) {
                         let spawn = Game.spawns[name];
@@ -19,29 +20,22 @@ var managerRoom = {
                     }
                 }
 
+                // If the room does have a spawn then let's get crackin'
                 if (room.memory.home) {
+                    let creeps = room.find(FIND_MY_CREEPS);
+                    room.memory.creepCount = creeps.length;
+                    room.memory.phase = this.getRoomPhase(room);
 
                     this.checkSources(room);
-                    
-                    if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
-                        this.initExtensions(room);
-                        room.memory.initExtensionsTick = Game.time + 150;
-                    }
-                    
-                    if (!room.memory.initRoadsTick || Game.time >= room.memory.initRoadsTick) {
-                        this.initRoads(room);
-                        room.memory.initRoadsTick = Game.time + 50;
-                    }
-
-                    if (!room.memory.initWallsTick || Game.time >= room.memory.initWallsTick) {
-                        this.initialiseWalls(room);
-                        room.memory.initWallsTick = Game.time + 100;
-                    }
-
+                    this.checkExtensions(room);
+                    this.checkContainers(room);
+                    this.checkRoads(room);
+                    this.checkWalls(room);
                     this.renewCreeps(room);
 
-                    roleManager.run(room);
+                    roleManager.run(room, creeps);
                 }
+
             }
         }
     },
@@ -50,7 +44,61 @@ var managerRoom = {
         if (!room.memory.sources) {
             this.initSources(room);
         }
+    },
 
+    initSources: function(room) {
+        var sources = room.find(FIND_SOURCES);
+        room.memory.sources = new Array(sources.length);
+        for (var i = 0; i < sources.length; i++) {
+            room.memory.sources[i] = {
+                id: sources[i].id,
+                workerCount: 0,
+                minerCount: 0,
+                containerId: null,
+                containerBuilding: false,
+                containerPos: null
+            };
+        }
+    },
+
+    /** @param {Room} room **/
+    checkExtensions: function(room) {
+        if (!room.memory.initExtensionsTick || Game.time >= room.memory.initExtensionsTick) {
+            this.initExtensions(room);
+            room.memory.initExtensionsTick = Game.time + 50;
+        }
+    },
+
+    
+    /** @param {Room} room **/
+    initExtensions: function(room) {
+        if (room.memory.phase >= 2) {
+            if (room.memory.extensionCount < 1) room.createConstructionSite(room.memory.home.pos.x - 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 2) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 3) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 4) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 5) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
+        }
+        if (room.memory.phase >= 3) {
+            if (room.memory.extensionCount < 6) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 7) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 8) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);        
+            if (room.memory.extensionCount < 9) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 10) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION); 
+        }
+    },
+
+    /** @param {Room} room **/
+    checkContainers: function(room) {
+        if (room.memory.phase >= 4) {
+            this.initContainers(room);
+        } else {
+            room.memory.containerCount = 0;
+        }
+    },
+
+    /** @param {Room} room **/
+    initContainers: function(room) {
         let containerCount = 0;
         room.memory.sources.forEach(function (source) {
             if (!source.containerId && !source.containerBuilding) {
@@ -77,34 +125,14 @@ var managerRoom = {
         room.memory.containerCount = containerCount;
     },
 
-    initSources: function(room) {
-        var sources = room.find(FIND_SOURCES);
-        room.memory.sources = new Array(sources.length);
-        for (var i = 0; i < sources.length; i++) {
-            room.memory.sources[i] = {
-                id: sources[i].id,
-                workerCount: 0,
-                minerCount: 0,
-                containerId: null,
-                containerBuilding: false,
-                containerPos: null
-            };
-        }
-    },
-    
     /** @param {Room} room **/
-    initExtensions: function(room) {
-        var extensions = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
-        if (extensions < 1) room.createConstructionSite(room.memory.home.pos.x - 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
-        if (extensions < 2) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
-        if (extensions < 3) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-        if (extensions < 4) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
-        if (extensions < 5) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-        if (extensions < 6) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-        if (extensions < 7) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
-        if (extensions < 8) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);        
-        if (extensions < 9) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
-        if (extensions < 10) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION); 
+    checkRoads: function(room) {
+        if (room.memory.phase >= 4) {
+            if (!room.memory.initRoadsTick || Game.time >= room.memory.initRoadsTick) {
+                this.initRoads(room);
+                room.memory.initRoadsTick = Game.time + 50;
+            }
+        }
     },
        
     /** @param {Room} room **/
@@ -152,6 +180,16 @@ var managerRoom = {
 
         // Create a ring road around the spawn.
         helperRoad.createRingRoad(room, room.memory.home.pos);
+    },
+
+    /** @param {Room} room **/
+    checkWalls: function(room) {
+        if (room.memory.phase >= 6) {
+            if (!room.memory.initWallsTick || Game.time >= room.memory.initWallsTick) {
+                this.initialiseWalls(room);
+                room.memory.initWallsTick = Game.time + 100;
+            }
+        }
     },
 
     initialiseWalls: function(room) {
@@ -234,6 +272,25 @@ var managerRoom = {
                 spawn.renewCreep(creep);
             }
         });
+    },
+
+    getRoomPhase: function(room) {
+        // First built up creeps and get them harvesting.
+        if (room.controller.level <= 1 || room.memory.creepCount < 3) return 1;
+
+        // Second step is to get the first set of extensions down so we can build bigger creeps.
+        room.memory.extensionCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
+        if (room.controller.level <= 2 || room.memory.extensionCount <= 5) return 2;
+
+        // Third step is to get the next set of extensions down so we can build even bigger creeps.
+        if (room.controller.level <= 3 || room.memory.extensionCount <= 10) return 3;
+
+        // At phase 4 and above we build containers and roads.
+
+        if (room.memory.containerCount <= 0) return 4; // Separating the phases here allow us to change the creep roles depending number of containers.
+        if (room.memory.containerCount <= 1) return 5; // Separating the phases here allow us to change the creep roles depending number of containers.
+
+        return 6; // Phase 6 is we build walls and ramparts
     }
 };
 

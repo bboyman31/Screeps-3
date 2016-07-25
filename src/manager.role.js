@@ -27,31 +27,21 @@ var managerRole = {
             mainSpawn.memory.creepNum = 0;
         }
 
-        let sourceContainers = 0;
-        room.memory.sources.forEach(function(source) {
-            if (source.containerId) sourceContainers++;
-        });
+        let creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'builder', 'builder', 'upgrader', 'harvester', 'harvester', 'builder', 'builder', 'upgrader', 'upgrader'];
+        if (room.memory.phase > 4)
+            creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'builder', 'builder', 'upgrader', 'harvester', 'harvester', 'builder', 'builder', 'upgrader', 'upgrader'];
+        if (room.memory.phase > 5)
+            creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'builder', 'upgrader'];
 
-        let creepCount = _.size(Game.creeps);
-        var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader'];
+        if (room.memory.creepCount < creepPriority.length) {
+            let creepBody = [WORK, CARRY, MOVE];
+            if (room.memory.phase > 2)
+                creepBody = [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
+            if (room.memory.phase > 3)
+                creepBody = [WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
 
-        if (creepCount >= 3) {
-            switch (sourceContainers) {
-                case 1 : creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
-                case 2 : creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'fixit', 'upgrader']; break;
-            }
-        }
-
-        if (creepCount < creepPriority.length) {
-            var extensions = _.size(mainSpawn.room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
-
-            var body = [WORK, CARRY, MOVE];
-            if (extensions >= 5 && creepCount >= 3) {
-                body = [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
-            }
-
-            if (mainSpawn.canCreateCreep(body) === OK) {
-                var creepName = mainSpawn.createCreep(body, 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
+            if (mainSpawn.canCreateCreep(creepBody) === OK) {
+                var creepName = mainSpawn.createCreep(creepBody, 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
                 if (creepName !== ERR_BUSY && creepName !== ERR_NOT_ENOUGH_ENERGY) {
                     console.log('[RoleManager] Spawning new creep: ' + creepName);
                 }
