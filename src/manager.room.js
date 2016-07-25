@@ -31,6 +31,7 @@ var managerRoom = {
                     this.checkContainers(room);
                     this.checkRoads(room);
                     this.checkWalls(room);
+                    this.checkTowers(room);
                     this.renewCreeps(room);
 
                     roleManager.run(room, creeps);
