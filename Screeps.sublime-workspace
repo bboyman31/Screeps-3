@@ -99,7 +99,7 @@
 			"file": "src/manager.role.js",
 			"settings":
 			{
-				"buffer_size": 6687,
+				"buffer_size": 6690,
 				"line_ending": "Windows"
 			}
 		},
@@ -460,15 +460,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6687,
+						"buffer_size": 6690,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4163,
-								4163
+								1924,
+								1924
 							]
 						],
 						"settings":
@@ -479,7 +479,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 495.0,
+						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

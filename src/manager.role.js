@@ -32,17 +32,21 @@ var managerRole = {
             if (source.containerId) sourceContainers++;
         });
 
+        let creepCount = _.size(Game.creeps);
         var creepPriority = ['harvester', 'harvester', 'harvester', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader'];
-        switch (sourceContainers) {
-            case 1 : creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
-            case 2 : creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'fixit', 'upgrader']; break;
+
+        if (creepCount >= 3) {
+            switch (sourceContainers) {
+                case 1 : creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'fixit', 'fixit', 'upgrader', 'harvester', 'harvester', 'builder', 'fixit', 'upgrader', 'upgrader']; break;
+                case 2 : creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'fixit', 'upgrader']; break;
+            }
         }
 
         if (_.size(Game.creeps) < creepPriority.length) {
             var extensions = _.size(mainSpawn.room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
 
             var body = [WORK, CARRY, MOVE];
-            if (extensions >= 5) {
+            if (extensions >= 5 && creepCount >= 3) {
                 body = [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
             }
 
