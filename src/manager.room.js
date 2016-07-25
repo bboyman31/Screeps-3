@@ -280,10 +280,10 @@ var managerRoom = {
 
         // Second step is to get the first set of extensions down so we can build bigger creeps.
         room.memory.extensionCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION; } }));
-        if (room.controller.level <= 2 || room.memory.extensionCount <= 5) return 2;
+        if (room.controller.level <= 2 || room.memory.extensionCount < 5) return 2;
 
         // Third step is to get the next set of extensions down so we can build even bigger creeps.
-        if (room.controller.level <= 3 || room.memory.extensionCount <= 10) return 3;
+        if (room.controller.level <= 3 || room.memory.extensionCount < 10) return 3;
 
         // At phase 4 and above we build containers and roads.
 
