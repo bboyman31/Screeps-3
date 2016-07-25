@@ -37,7 +37,7 @@ var roleFixit = {
             creep.memory.repairing = true;
         }
 
-        if(creep.memory.repairing) {
+        if (creep.memory.repairing) {
             if (!creep.memory.repairTargetId) {
                 let structures = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
@@ -59,29 +59,30 @@ var roleFixit = {
         } else {
             if (!creep.memory.targetId) {
                 if (creep.room.memory.containerCount) {
-                    /*
+
                     let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                         filter: { structureType: STRUCTURE_CONTAINER }
                     });
-                    if (!container) return false; // TODO Work out why this fires.
-                    creep.memory.targetId = container.id;
-                    */
 
-                    let containers = [];
-                    creep.room.memory.sources.forEach(function(source) {
-                        if (source.containerId) {
-                            containers[containers.length] = Game.getObjectById(source.containerId);
-                        }
-                    });
-
-                    if (containers.length) {
-                        containers = _.sortBy(containers, function(container) {
-                            return _.sum(container.store) * -1;
+                    if (container) {
+                        creep.memory.targetId = container.id;
+                    } else {
+                        console.log('Fallback');
+                        let containers = [];
+                        creep.room.memory.sources.forEach(function(source) {
+                            if (source.containerId) {
+                                containers[containers.length] = Game.getObjectById(source.containerId);
+                            }
                         });
-                        creep.memory.targetId = containers[0].id;
-                    }
 
-                    //creep.memory.targetId = creep.room.memory.sources[0].containerId;
+                        if (containers.length) {
+                            containers = _.sortBy(containers, function(container) {
+                                return _.sum(container.store) * -1;
+                            });
+                            creep.memory.targetId = containers[0].id;
+                        }
+                    }
+                    
                 } else {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
                     creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
