@@ -11,7 +11,7 @@ var towerManager = {
         }
 
         if (damagedCreeps.length === 0) {
-            var repairStructures = room.find(FIND_MY_STRUCTURES, {
+            var repairStructures = room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.hits < structure.hitsMax);
                 }
