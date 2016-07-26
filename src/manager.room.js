@@ -1,5 +1,6 @@
 var towerManager = require('manager.tower');
 var roleManager = require('manager.role');
+var pioneerManager = require('manager.pioneer');
 var helperWall = require('helper.wall');
 var helperRoad = require('helper.road');
 
@@ -16,6 +17,7 @@ var managerRoom = {
                         let spawn = Game.spawns[name];
                         if (spawn.room.name === room.name) {
                             room.memory.home = spawn;
+                            room.memory.homeId = spawn.id;
                             break;
                         }
                     }
@@ -23,11 +25,18 @@ var managerRoom = {
 
                 // If the room does have a spawn then let's get crackin'
                 if (room.memory.home) {
-                    let creeps = room.find(FIND_MY_CREEPS);
-                    room.memory.creepCount = creeps.length;
+                    //let creeps = room.find(FIND_MY_CREEPS);
+                    //room.memory.creepCount = creeps.length;
+
+                    let workers = room.find(FIND_MY_CREEPS, { filter: { memory: { type: 'worker' } } });
+                    room.memory.workerCount = workers.length;
+                    room.memory.creepCount = workers.length;
 
                     let towers = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
                     room.memory.towerCount = towers.length;
+
+                    let pioneers = room.find(FIND_MY_CREEPS, { filter: { memory: { type: 'pioneer' } } });
+                    room.memory.pioneerCount = pioneers.length;
 
                     room.memory.phase = this.getRoomPhase(room);
 
@@ -40,7 +49,8 @@ var managerRoom = {
                     this.renewCreeps(room);
 
                     towerManager.run(room, towers);
-                    roleManager.run(room, creeps);
+                    roleManager.run(room, workers);
+                    pioneerManager.run(room, pioneers);
                 }
 
             }
@@ -282,7 +292,8 @@ var managerRoom = {
         });
 
         if (goals.length) {
-            let pathResult = PathFinder.search(room.memory.home.pos, goals[0], {
+            let home = Game.getObjectById(room.memory.home.id);
+            let pathResult = PathFinder.search(home.pos, goals[0], {
                 plainCost: 1,
                 swampCost: 1,               
                 roomCallback: function(roomName) {
@@ -335,7 +346,10 @@ var managerRoom = {
         constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
         if (towerCount == 0 || constructionSiteCount > 0) return 7;
 
-        return 8; // And on the 8th day, we rested.
+        // Phase 8 we wait for a pioneer to be created.
+        if (room.memory.pioneerCount < 1) return 8;
+
+        return 9; // And on the 9th day, we took another room!
     }
 };
 

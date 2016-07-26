@@ -6,7 +6,7 @@ var roleMiner = require('role.miner');
 var roleCollector = require('role.collector');
 
 var managerRole = {
-    run: function(room) {
+    run: function(room, workers) {
         var mainSpawn = Game.getObjectById(room.memory.home.id);
 
         // Always place this memory cleaning code at the very top of your main loop!
@@ -32,6 +32,8 @@ var managerRole = {
             creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'builder', 'builder', 'upgrader', 'harvester', 'harvester', 'builder', 'builder', 'upgrader', 'upgrader'];
         if (room.memory.phase > 5)
             creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'builder', 'upgrader'];
+        if (room.memory.phase > 7)
+            creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'builder', 'upgrader', 'miner', 'collector', 'upgrader'];
 
         if (room.memory.creepCount < creepPriority.length) {
             let creepBody = [WORK, CARRY, MOVE];
@@ -41,16 +43,15 @@ var managerRole = {
                 creepBody = [WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
 
             if (mainSpawn.canCreateCreep(creepBody) === OK) {
-                var creepName = mainSpawn.createCreep(creepBody, 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
+                var creepName = mainSpawn.createCreep(creepBody, 'Creep-' + (++mainSpawn.memory.creepNum), { type: 'worker', role: 'idle', num: mainSpawn.memory.creepNum });
                 if (creepName !== ERR_BUSY && creepName !== ERR_NOT_ENOUGH_ENERGY) {
                     console.log('[RoleManager] Spawning new creep: ' + creepName);
                 }
             }
         }
 
-        for(var name in Game.creeps) {
-            var creep = Game.creeps[name];
-
+        for (let workerIndex = 0; workerIndex < workers.length; workerIndex++) {
+            let creep = workers[workerIndex];
             var roleHandler = this.getRoleHandler(creep.memory);
             
             if (!roleHandler) {
@@ -96,7 +97,7 @@ var managerRole = {
                 if (desiredRole === 'fixit') {
                     var bustedStructures = creep.room.find(FIND_STRUCTURES, {
                         filter: (structure) => {
-                            return (structure.hits < structure.hitsMax);
+                            return (structure.hits < structure.hitsMax && structure.hits < 300000);
                         }
                     });
                     if (bustedStructures.length == 0) {
@@ -120,6 +121,7 @@ var managerRole = {
                     creep.memory.role = 'idle';
                 }
             }
+
         }
     },
 
