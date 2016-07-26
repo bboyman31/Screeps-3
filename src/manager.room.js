@@ -282,7 +282,8 @@ var managerRoom = {
         });
 
         if (goals.length) {
-            let pathResult = PathFinder.search(room.memory.home.pos, goals[0], {
+            let home = Game.getObjectById(room.memory.home.id);
+            let pathResult = PathFinder.search(home.pos, goals[0], {
                 plainCost: 1,
                 swampCost: 1,               
                 roomCallback: function(roomName) {
