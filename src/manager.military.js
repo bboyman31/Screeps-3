@@ -51,7 +51,7 @@ var militaryManager = {
                 });
             } else {
                 let hostiles = captain.pos.findInRange(FIND_HOSTILE_CREEPS, 5);
-                if (hostiles) {
+                if (hostiles.length) {
                     soldiers.forEach(function (soldier) {
                         if (soldier.attack(hostiles[0]) === ERR_NOT_IN_RANGE) {
                             soldier.moveTo(hostiles[0]);
@@ -62,7 +62,7 @@ var militaryManager = {
                         if (soldier.id === captain.id) {
                             let wait = false;
                             for (let i = 0; i < soldiers.length; i++) {
-                                if (!captain.pos.inRangeTo(otherSoldier, 5)) {
+                                if (!captain.pos.inRangeTo(soldiers[i], 5)) {
                                     wait = true;
                                     break;
                                 }

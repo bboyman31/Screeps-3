@@ -44,6 +44,7 @@ var roleFixit = {
                         return (structure.hits < structure.hitsMax && structure.hits < 300000);
                     }
                 });
+                if (!structures.length) return false;
                 structures = _.sortBy(structures, function(structure) { return structure.hits / Math.min(structure.hitsMax, 250000); });
                 creep.memory.repairTargetId = structures[0].id;
             }
