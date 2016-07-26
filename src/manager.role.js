@@ -41,7 +41,7 @@ var managerRole = {
                 creepBody = [WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
 
             if (mainSpawn.canCreateCreep(creepBody) === OK) {
-                var creepName = mainSpawn.createCreep(creepBody, 'Creep-' + (++mainSpawn.memory.creepNum), { role: 'idle', num: mainSpawn.memory.creepNum });
+                var creepName = mainSpawn.createCreep(creepBody, 'Creep-' + (++mainSpawn.memory.creepNum), { type: 'worker', role: 'idle', num: mainSpawn.memory.creepNum });
                 if (creepName !== ERR_BUSY && creepName !== ERR_NOT_ENOUGH_ENERGY) {
                     console.log('[RoleManager] Spawning new creep: ' + creepName);
                 }
