@@ -143,13 +143,13 @@ var managerRoom = {
         let sourceGoals = _.map(room.find(FIND_SOURCES), function(source) {  
             return { pos: source.pos, range: 1 };
         });
+        if (sourceGoals.length) goals = goals.concat(sourceGoals);
         
         let rampartGoals = _.map(room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }), function(source) {  
             return { pos: source.pos, range: 0 };
         });
+        if (rampartGoals.length) goals = goals.concat(rampartGoals);
 
-        goals = goals.concat(sourceGoals);
-        goals = goals.concat(rampartGoals);
         goals = goals.concat([{ pos: room.controller.pos, range: 1 }]);
 
         goals.forEach(function(goal) {
