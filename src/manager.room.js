@@ -37,7 +37,7 @@ var managerRoom = {
 
                     let pioneers = room.find(FIND_MY_CREEPS, { filter: { memory: { type: 'pioneer' } } });
                     room.memory.pioneerCount = pioneers.length;
-                    
+
                     room.memory.phase = this.getRoomPhase(room);
 
                     this.checkSources(room);
@@ -49,7 +49,7 @@ var managerRoom = {
                     this.renewCreeps(room);
 
                     towerManager.run(room, towers);
-                    roleManager.run(room, creeps);
+                    roleManager.run(room, workers);
                     pioneerManager.run(room, pioneers);
                 }
 
