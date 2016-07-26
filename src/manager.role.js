@@ -6,7 +6,7 @@ var roleMiner = require('role.miner');
 var roleCollector = require('role.collector');
 
 var managerRole = {
-    run: function(room) {
+    run: function(room, workers) {
         var mainSpawn = Game.getObjectById(room.memory.home.id);
 
         // Always place this memory cleaning code at the very top of your main loop!
@@ -48,8 +48,7 @@ var managerRole = {
             }
         }
 
-        for(var name in Game.creeps) {
-            var creep = Game.creeps[name];
+        workers.forEach(function (creep) {
 
             var roleHandler = this.getRoleHandler(creep.memory);
             
@@ -120,7 +119,8 @@ var managerRole = {
                     creep.memory.role = 'idle';
                 }
             }
-        }
+            
+        });
     },
 
     getRoleHandler: function(creepMemory) {
