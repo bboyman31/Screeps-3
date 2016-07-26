@@ -48,8 +48,8 @@ var managerRole = {
             }
         }
 
-        workers.forEach(function (creep) {
-
+        for (let workerIndex = 0; workerIndex < workers.length; workerIndex++) {
+            let creep = workers[workerIndex];
             var roleHandler = this.getRoleHandler(creep.memory);
             
             if (!roleHandler) {
@@ -119,8 +119,8 @@ var managerRole = {
                     creep.memory.role = 'idle';
                 }
             }
-            
-        });
+
+        }
     },
 
     getRoleHandler: function(creepMemory) {
