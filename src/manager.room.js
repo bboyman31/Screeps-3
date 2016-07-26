@@ -152,27 +152,24 @@ var managerRoom = {
 
         goals = goals.concat([{ pos: room.controller.pos, range: 1 }]);
 
+        let costMatrix = new PathFinder.CostMatrix;
+        room.find(FIND_STRUCTURES).forEach(function(structure) {
+            if (structure.structureType !== STRUCTURE_CONTAINER && (structure.structureType !== STRUCTURE_RAMPART || !structure.my) && structure.structureType !== STRUCTURE_ROAD) {
+                // Can't walk through non-walkable buildings
+                costMatrix.set(structure.pos.x, structure.pos.y, 0xff);
+            }
+        });
+        
+        let home = Game.getObjectById(room.memory.home.id);
         goals.forEach(function(goal) {
-            let pathResult = PathFinder.search(room.memory.home.pos, goal, {
+            let pathResult = PathFinder.search(home.pos, goal, {
                 // We don't want to priortise terrain type because we're building
                 // roads the most direct route.
                 plainCost: 1,
                 swampCost: 1,
-                
-                roomCallback: function(roomName) {
-                    let costs = new PathFinder.CostMatrix;
-                
-                    room.find(FIND_STRUCTURES).forEach(function(structure) {
-                        if (structure.structureType !== STRUCTURE_CONTAINER && (structure.structureType !== STRUCTURE_RAMPART || !structure.my) && structure.structureType !== STRUCTURE_ROAD) {
-                            // Can't walk through non-walkable buildings
-                            costs.set(structure.pos.x, structure.pos.y, 0xff);
-                        }
-                    });
-    
-                    return costs;
-                }
+                roomCallback: function(roomName) { return costMatrix }
             });
-            
+
             let path = pathResult.path;
             for (let i = 0; i < path.length; i++) {
                 room.createConstructionSite(path[i].x, path[i].y, STRUCTURE_ROAD);
