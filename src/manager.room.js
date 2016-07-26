@@ -1,3 +1,4 @@
+var towerManager = require('manager.tower');
 var roleManager = require('manager.role');
 var helperWall = require('helper.wall');
 var helperRoad = require('helper.road');
@@ -24,6 +25,10 @@ var managerRoom = {
                 if (room.memory.home) {
                     let creeps = room.find(FIND_MY_CREEPS);
                     room.memory.creepCount = creeps.length;
+
+                    let towers = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
+                    room.memory.towerCount = towers.length;
+
                     room.memory.phase = this.getRoomPhase(room);
 
                     this.checkSources(room);
@@ -34,6 +39,7 @@ var managerRoom = {
                     this.checkTowers(room);
                     this.renewCreeps(room);
 
+                    towerManager.run(room, towers);
                     roleManager.run(room, creeps);
                 }
 
