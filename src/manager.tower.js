@@ -22,10 +22,12 @@ var towerManager = {
         towers.forEach(function (tower) {
             if (hostileCreeps.length) {
                 tower.attack(hostileCreeps[0]);
-            } else if (damagedCreeps.length) {
-                tower.heal(damagedCreeps[0]);
-            } else if (repairStructures.length) {
-                tower.repair(repairStructures[0]);
+            } else if (tower.energy > tower.energyCapacity / 2) {
+                if (damagedCreeps.length) {
+                    tower.heal(damagedCreeps[0]);
+                } else if (repairStructures.length) {
+                    tower.repair(repairStructures[0]);
+                }
             }
         });
     }
