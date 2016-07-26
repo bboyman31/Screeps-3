@@ -71,7 +71,7 @@ var militaryManager = {
                         } else {
                             soldier.moveTo(captain);
                         }
-                    }
+                    });
                 }
             }
         }
