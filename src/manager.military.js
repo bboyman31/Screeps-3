@@ -63,7 +63,7 @@ var militaryManager = {
                             let wait = false;
                             for (let i = 0; i < soldiers.length; i++) {
                                 if (!captain.pos.inRangeTo(soldiers[i], 5)) {
-                                    wait = true;
+                                    //wait = true;
                                     break;
                                 }
                             }
