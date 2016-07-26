@@ -103,6 +103,14 @@ var managerRoom = {
             if (room.memory.extensionCount < 9) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
             if (room.memory.extensionCount < 10) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION); 
         }
+
+        if (room.memory.phase >= 8) {
+            if (room.memory.extensionCount < 11) room.createConstructionSite(room.memory.home.pos.x - 3, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 12) room.createConstructionSite(room.memory.home.pos.x - 3, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 13) room.createConstructionSite(room.memory.home.pos.x - 4, room.memory.home.pos.y, STRUCTURE_EXTENSION);        
+            if (room.memory.extensionCount < 14) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 4, STRUCTURE_EXTENSION);
+            if (room.memory.extensionCount < 15) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 4, STRUCTURE_EXTENSION); 
+        }
     },
 
     /** @param {Room} room **/
