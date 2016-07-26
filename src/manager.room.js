@@ -1,5 +1,6 @@
 var towerManager = require('manager.tower');
 var roleManager = require('manager.role');
+var pioneerManager = require('manager.pioneer');
 var helperWall = require('helper.wall');
 var helperRoad = require('helper.road');
 
@@ -16,6 +17,7 @@ var managerRoom = {
                         let spawn = Game.spawns[name];
                         if (spawn.room.name === room.name) {
                             room.memory.home = spawn;
+                            room.memory.homeId = spawn.id;
                             break;
                         }
                     }
@@ -23,11 +25,13 @@ var managerRoom = {
 
                 // If the room does have a spawn then let's get crackin'
                 if (room.memory.home) {
-                    let creeps = room.find(FIND_MY_CREEPS);
+                    let creeps = room.find(FIND_MY_CREEPS, { filter: { type: 'worker' } });
                     room.memory.creepCount = creeps.length;
 
                     let towers = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
                     room.memory.towerCount = towers.length;
+
+                    let pioneers = room.find(FIND_MY_CREEPS, { filter: { type: 'pioneer' } });
 
                     room.memory.phase = this.getRoomPhase(room);
 
@@ -41,6 +45,7 @@ var managerRoom = {
 
                     towerManager.run(room, towers);
                     roleManager.run(room, creeps);
+                    pioneerManager.run(room, pioneers);
                 }
 
             }
