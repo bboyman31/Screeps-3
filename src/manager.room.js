@@ -346,7 +346,10 @@ var managerRoom = {
         constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
         if (towerCount == 0 || constructionSiteCount > 0) return 7;
 
-        return 8; // And on the 8th day, we rested.
+        // Phase 8 we wait for a pioneer to be created.
+        if (room.memory.pioneerCount < 1) return 8;
+
+        return 9; // And on the 9th day, we took another room!
     }
 };
 
