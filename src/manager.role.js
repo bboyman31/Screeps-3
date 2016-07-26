@@ -96,7 +96,7 @@ var managerRole = {
                 if (desiredRole === 'fixit') {
                     var bustedStructures = creep.room.find(FIND_STRUCTURES, {
                         filter: (structure) => {
-                            return (structure.hits < structure.hitsMax);
+                            return (structure.hits < structure.hitsMax && structure.hits < 300000);
                         }
                     });
                     if (bustedStructures.length == 0) {

@@ -13,7 +13,7 @@ var towerManager = {
         if (damagedCreeps.length === 0) {
             var repairStructures = room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.hits < structure.hitsMax);
+                    return (structure.hits < structure.hitsMax && structure.hits < 300000);
                 }
             });
             repairStructures = _.sortBy(repairStructures, function(structure) { return structure.hits / Math.min(structure.hitsMax, 250000); });
