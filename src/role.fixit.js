@@ -59,31 +59,14 @@ var roleFixit = {
         } else {
             if (!creep.memory.targetId) {
                 if (creep.room.memory.containerCount) {
-
                     let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                        filter: { structureType: STRUCTURE_CONTAINER }
-                    });
-
-                    if (container) {
-                        creep.memory.targetId = container.id;
-                    } else {
-                        console.log('Fallback');
-                        let containers = [];
-                        creep.room.memory.sources.forEach(function(source) {
-                            if (source.containerId) {
-                                containers[containers.length] = Game.getObjectById(source.containerId);
-                            }
-                        });
-
-                        if (containers.length) {
-                            containers = _.sortBy(containers, function(container) {
-                                return _.sum(container.store) * -1;
-                            });
-                            creep.memory.targetId = containers[0].id;
+                        filter: (structure) => {
+                            return (structure.structureType == STRUCTURE_CONTAINER && structure.energy > 0);
                         }
-                    }
-                    
-                } else {
+                    });
+                    if (container) creep.memory.targetId = container.id;
+                }
+                if (!creep.memory.targetId) {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
                     creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
                     sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetSourceIndex]);

@@ -43,10 +43,13 @@ var roleUpgrader = {
             if (!creep.memory.targetId) {
                 if (creep.room.memory.containerCount) {
                     let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                        filter: { structureType: STRUCTURE_CONTAINER }
+                        filter: (structure) => {
+                            return (structure.structureType == STRUCTURE_CONTAINER && structure.energy > 0);
+                        }
                     });
-                    creep.memory.targetId = container.id;
-                } else {
+                    if (container) creep.memory.targetId = container.id;
+                }
+                if (!creep.memory.targetId) {
                     creep.memory.targetSourceIndex = creep.room.getUnderworkedSource();
                     creep.memory.targetId = creep.room.memory.sources[creep.memory.targetSourceIndex].id;
                     sourceHelper.addWorker(creep.room.memory.sources[creep.memory.targetSourceIndex]);
