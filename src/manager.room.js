@@ -25,8 +25,11 @@ var managerRoom = {
 
                 // If the room does have a spawn then let's get crackin'
                 if (room.memory.home) {
-                    let creeps = room.find(FIND_MY_CREEPS, { filter: function (creep) { creep.memory.type === 'worker' } });
+                    let creeps = room.find(FIND_MY_CREEPS);
                     room.memory.creepCount = creeps.length;
+
+                    let workers = room.find(FIND_MY_CREEPS, { filter: function (creep) { creep.memory.type == 'worker' } });
+                    room.memory.workerCount = workers.length;
 
                     let towers = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
                     room.memory.towerCount = towers.length;
