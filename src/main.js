@@ -1,7 +1,9 @@
 var roomManager = require('manager.room');
+var militaryManager = require('manager.military');
 
 module.exports.loop = function () {
     roomManager.run();
+    militaryManager.run();
 };
 
 Room.prototype.getUnderworkedSource = function() {

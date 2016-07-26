@@ -2,7 +2,7 @@ var towerManager = {
     run: function(room, towers) {
         let hostileCreeps = room.find(FIND_HOSTILE_CREEPS);
 
-        if (hostileCreeps.length === 0) {
+        if (!hostileCreeps || hostileCreeps.length === 0) {
             var damagedCreeps = room.find(FIND_MY_CREEPS, {
                 filter: (creep) => {
                     return (creep.hits < creep.hitsMax);
@@ -10,7 +10,7 @@ var towerManager = {
             });
         }
 
-        if (damagedCreeps.length === 0) {
+        if (!damagedCreeps || damagedCreeps.length === 0) {
             var repairStructures = room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.hits < structure.hitsMax && structure.hits < 300000);
