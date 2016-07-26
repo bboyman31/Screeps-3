@@ -51,6 +51,13 @@ var roleCollector = {
                             structure.energy < structure.energyCapacity;
                     }
                 });
+                if (targets.length == 0) {
+                    targets = creep.room.find(FIND_STRUCTURES, {
+                        filter: (tower) => {
+                            return (tower.structureType == STRUCTURE_TOWER && tower.energy < tower.energyCapacity);
+                        }
+                    });
+                }
                 if (targets.length > 0) {
                     if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0]);
