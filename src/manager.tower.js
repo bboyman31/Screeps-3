@@ -16,7 +16,7 @@ var towerManager = {
                     return (structure.hits < structure.hitsMax);
                 }
             });
-            repairStructures = _.sortBy(structures, function(structure) { return structure.hits / Math.min(structure.hitsMax, 250000); });
+            repairStructures = _.sortBy(repairStructures, function(structure) { return structure.hits / Math.min(structure.hitsMax, 250000); });
         }
 
         towers.forEach(function (tower) {
