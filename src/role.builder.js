@@ -72,7 +72,7 @@ var roleBuilder = {
                 }
             }
             if (creep.memory.targetId) {
-                if (creep.memory.targetSourceIndex) {
+                if (creep.memory.targetSourceIndex !== undefined) {
                     let source = Game.getObjectById(creep.memory.targetId);
                     if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source);
