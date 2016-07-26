@@ -45,7 +45,7 @@ var militaryManager = {
 
             if (soldiers < 5) {
                 soldiers.forEach(function (soldier) {
-                    if (soldier.id !=== captain.id) {
+                    if (soldier.id !== captain.id) {
                         soldier.moveTo(captain);
                     }
                 });
