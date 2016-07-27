@@ -89,6 +89,25 @@ var managerRoom = {
     
     /** @param {Room} room **/
     initExtensions: function(room) {
+        let extensionPositions = [
+            { x: -1, y: -2 },
+            { x: +1, y: -2 },
+            { x: +2, y: -1 },
+            { x: +2, y: +1 },
+            { x: -1, y: +2 },
+            { x: +1, y: +2 },
+            { x: -2, y: -1 },
+            { x: -2, y: +1 },
+
+            { x: +0, y: -3 },
+            { x: +3, y: +0 },
+            { x: +0, y: +3 },
+            { x: -3, y: +0 },
+
+                        
+        ];
+
+
         if (room.memory.phase >= 2) {
             if (room.memory.extensionCount < 1) room.createConstructionSite(room.memory.home.pos.x - 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
             if (room.memory.extensionCount < 2) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
