@@ -46,6 +46,7 @@ var managerRoom = {
                     this.checkRoads(room);
                     this.checkWalls(room);
                     this.checkTowers(room);
+                    this.checkStorage(room);
                     this.renewCreeps(room);
 
                     towerManager.run(room, towers);
@@ -339,6 +340,31 @@ var managerRoom = {
         }
     },
 
+    /** @param {Room} room **/
+    checkStorage: function(room) {
+        if (room.phase.phase >= 10) {
+            if (!room.memory.storage) room.memory.storage = [];
+            if (room.memory.storage.length < 1)
+                this.initialiseStorage(room);
+            }
+        }
+    },
+
+    /** @param {Room} room **/
+    initialiseStorage: function(room) {
+        let towers = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
+        if (towers.length) {
+            let storageSites = [{ x: 0, y: -2 }, { x: 2, y: 0 }, { x: 0, y: 2 }, { x: -2, y: 0 }];
+            storageSites.forEach(function (storageSite) {
+                if (room.memory.storage.length) return;
+                if (room.createConstructionSite(towers[0].pos.x + storageSite.x, towers[0].pos.y + storageSite.y, STRUCTURE_STORAGE) === OK) {
+                    let sites = room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_STORAGE } });
+                    room.memory.storage[room.memory.storage.length] = { building: true, siteId: sites[0].id, storageId: null };
+                }
+            });
+        }
+    },
+
     renewCreeps: function(room) {
         var spawn = Game.getObjectById(room.memory.home.id);
         var creeps = spawn.pos.findInRange(FIND_MY_CREEPS, 1);
@@ -381,8 +407,10 @@ var managerRoom = {
         // Phase 9 we build another 5 extentions (total 20)
         if (room.memory.extensionCount < 20) return 9;
 
-        // Phase 10 ...
-        return 10;
+        // Phase 10 we build a storage near our turret
+        if (!room.storage) return 10;
+
+        return 11;
     }
 };
 
