@@ -392,13 +392,13 @@ var managerRoom = {
         if (room.memory.containerCount <= 1) return 5; // Separating the phases here allow us to change the creep roles depending number of containers.
 
         // Phase 6 is we build walls and ramparts
-        let rampartCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_RAMPART; } }));
-        let constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
+        let rampartCount = _.size(room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }));
+        let constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_RAMPART } }));
         if (rampartCount == 0 || constructionSiteCount > 0) return 6;
 
         // Phase 7 is build a tower
-        let towerCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_TOWER; } }));
-        constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
+        let towerCount = _.size(room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }));
+        constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_TOWER } }));
         if (towerCount == 0 || constructionSiteCount > 0) return 7;
 
         // Phase 8 we build 5 more extensions
