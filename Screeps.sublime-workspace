@@ -4,48 +4,8 @@
 		"selected_items":
 		[
 			[
-				"worke",
-				"workerIndex"
-			],
-			[
-				"le",
-				"length"
-			],
-			[
-				"work",
-				"workerIndex"
-			],
-			[
-				"sold",
-				"soldiers"
-			],
-			[
-				"sol",
-				"soldier"
-			],
-			[
-				"soldi",
-				"soldiers"
-			],
-			[
-				"ca",
-				"captain"
-			],
-			[
-				"capt",
-				"captains"
-			],
-			[
-				"military",
-				"militaryManager"
-			],
-			[
-				"repa",
-				"repairStructures"
-			],
-			[
-				"FIND_MY",
-				"FIND_MY_STRUCTURES"
+				"rampa",
+				"rampartGoals"
 			],
 			[
 				"ramp",
@@ -135,15 +95,7 @@
 			"file": "src/manager.room.js",
 			"settings":
 			{
-				"buffer_size": 16730,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/manager.military.js",
-			"settings":
-			{
-				"buffer_size": 3073,
+				"buffer_size": 16944,
 				"line_ending": "Windows"
 			}
 		},
@@ -186,23 +138,6 @@
 				"buffer_size": 6899,
 				"line_ending": "Windows"
 			}
-		},
-		{
-			"file": "src/manager.pioneer.js",
-			"settings":
-			{
-				"buffer_size": 415,
-				"line_ending": "Windows",
-				"name": "var pioneerManager = {"
-			}
-		},
-		{
-			"file": "src/main.js",
-			"settings":
-			{
-				"buffer_size": 1029,
-				"line_ending": "Windows"
-			}
 		}
 	],
 	"build_system": "",
@@ -237,12 +172,11 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Development/Sublime/Screeps",
-		"/D/Development/Sublime/Screeps/src"
+		"/E/Development/Sublime Text 3/Screeps",
+		"/E/Development/Sublime Text 3/Screeps/src"
 	],
 	"file_history":
 	[
-		"/D/Development/Sublime/Screeps/src/manager.tower.js",
 		"/D/Users/Jargon/Downloads/stdout_2528_201672511170 (2).log",
 		"/D/Users/Jargon/Downloads/stdout_2528_2016725112610 (1).log",
 		"/D/Users/Jargon/Downloads/stdout_2528_20167251260.log",
@@ -323,7 +257,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -338,7 +272,6 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"soldiers",
 			"!');",
 			"findClosestByPath",
 			"\\n[\\n]+",
@@ -434,7 +367,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -443,15 +376,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16730,
+						"buffer_size": 16944,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3656,
-								3656
+								3962,
+								3976
 							]
 						],
 						"settings":
@@ -461,7 +394,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1080.0,
+						"translation.y": 1243.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -469,36 +402,6 @@
 				},
 				{
 					"buffer": 2,
-					"file": "src/manager.military.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3073,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2670,
-								2670
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "src/role.fixit.js",
 					"semi_transient": false,
 					"settings":
@@ -510,8 +413,8 @@
 						"selection":
 						[
 							[
-								2058,
-								2058
+								0,
+								0
 							]
 						],
 						"settings":
@@ -521,14 +424,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 180.0,
+						"translation.y": 503.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "src/role.builder.js",
 					"semi_transient": false,
 					"settings":
@@ -540,8 +443,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								3238,
+								3238
 							]
 						],
 						"settings":
@@ -551,14 +454,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 495.0,
+						"translation.y": 484.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "src/role.collector.js",
 					"semi_transient": false,
 					"settings":
@@ -570,8 +473,8 @@
 						"selection":
 						[
 							[
-								2271,
-								2057
+								197,
+								208
 							]
 						],
 						"settings":
@@ -581,14 +484,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 405.0,
+						"translation.y": 450.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "src/role.upgrader.js",
 					"semi_transient": false,
 					"settings":
@@ -600,8 +503,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								2582,
+								2582
 							]
 						],
 						"settings":
@@ -614,11 +517,11 @@
 						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "src/manager.role.js",
 					"semi_transient": false,
 					"settings":
@@ -630,8 +533,8 @@
 						"selection":
 						[
 							[
-								1814,
-								1814
+								0,
+								0
 							]
 						],
 						"settings":
@@ -641,69 +544,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 135.0,
+						"translation.y": 612.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "src/manager.pioneer.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 415,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								161,
-								60
-							]
-						],
-						"settings":
-						{
-							"auto_name": "var pioneerManager = {",
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "src/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1029,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1029,
-								1029
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -748,7 +592,7 @@
 	"project": "Screeps.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
