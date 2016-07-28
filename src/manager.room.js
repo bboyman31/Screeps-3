@@ -89,28 +89,48 @@ var managerRoom = {
     
     /** @param {Room} room **/
     initExtensions: function(room) {
-        if (room.memory.phase >= 2) {
-            if (room.memory.extensionCount < 1) room.createConstructionSite(room.memory.home.pos.x - 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 2) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 3) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 4) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 5) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-        }
-        if (room.memory.phase >= 3) {
-            if (room.memory.extensionCount < 6) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 7) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 8) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);        
-            if (room.memory.extensionCount < 9) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 10) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION); 
-        }
+        let extensionPositions = [
+            { x: -1, y: -2 },
+            { x: +1, y: -2 },
+            { x: +2, y: -1 },
+            { x: +2, y: +1 },
+            { x: -1, y: +2 },
+            { x: +1, y: +2 },
+            { x: -2, y: -1 },
+            { x: -2, y: +1 },
 
-        if (room.memory.phase >= 8) {
-            if (room.memory.extensionCount < 11) room.createConstructionSite(room.memory.home.pos.x - 3, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 12) room.createConstructionSite(room.memory.home.pos.x - 3, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 13) room.createConstructionSite(room.memory.home.pos.x - 4, room.memory.home.pos.y, STRUCTURE_EXTENSION);        
-            if (room.memory.extensionCount < 14) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 4, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 15) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 4, STRUCTURE_EXTENSION); 
-        }
+            { x: +0, y: -3 },
+            { x: +3, y: +0 },
+            { x: +0, y: +3 },
+            { x: -3, y: +0 },
+
+            { x: -2, y: -3 },
+            { x: +2, y: -3 },
+            { x: +3, y: -2 },
+            { x: +3, y: +2 },
+            { x: -2, y: +3 },
+            { x: +2, y: +3 },
+            { x: -3, y: -2 },
+            { x: -3, y: +2 }
+        ];
+
+        let extensionSites = _.size(room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_EXTENSION } }));
+
+        let extensionsRequired = 0;
+        if (room.memory.phase >= 2) extensionsRequired = 5;
+        if (room.memory.phase >= 3) extensionsRequired = 10;
+        if (room.memory.phase >= 8) extensionsRequired = 15;
+        if (room.memory.phase >= 9) extensionsRequired = 20;
+        let buildExtensions = extensionsRequired - room.memory.extensionCount - extensionSites;
+
+        if (buildExtensions > 0) {
+            extensionPositions.forEach(function (extensionPosition) {
+                if (buildExtensions == 0) return;
+                if (room.createConstructionSite(extensionPosition.x, extensionPosition.y, STRUCTURE_EXTENSION) === OK) {
+                    buildExtensions--;
+                }
+            });
+        };
     },
 
     /** @param {Room} room **/
@@ -354,10 +374,14 @@ var managerRoom = {
         constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
         if (towerCount == 0 || constructionSiteCount > 0) return 7;
 
-        // Phase 8 we wait for a pioneer to be created.
-        if (room.memory.pioneerCount < 1) return 8;
+        // Phase 8 we build 5 more extensions
+        if (room.memory.extensionCount < 15) return 8;
 
-        return 9; // And on the 9th day, we took another room!
+        // Phase 9 we build another 5 extentions (total 20)
+        if (room.memory.extensionCount < 20) return 9;
+
+        // Phase 10 ...
+        return 10;
     }
 };
 
