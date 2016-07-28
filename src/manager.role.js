@@ -31,9 +31,9 @@ var managerRole = {
         if (room.memory.phase > 4)
             creepPriority = ['miner', 'collector', 'collector', 'upgrader', 'builder', 'builder', 'builder', 'builder', 'upgrader', 'harvester', 'harvester', 'builder', 'builder', 'upgrader', 'upgrader'];
         if (room.memory.phase > 5)
-            creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'builder', 'upgrader'];
+            creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'builder', 'builder', 'upgrader'];
         if (room.memory.phase > 7)
-            creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'upgrader', 'builder', 'upgrader', 'miner', 'collector', 'upgrader'];
+            creepPriority = ['miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'miner', 'collector', 'upgrader', 'upgrader', 'builder', 'builder', 'builder', 'builder', 'upgrader', 'miner', 'collector', 'upgrader'];
 
         if (room.memory.creepCount < creepPriority.length) {
             let creepBody = [WORK, CARRY, MOVE];
