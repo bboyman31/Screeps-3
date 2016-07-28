@@ -1,20 +1,26 @@
 var roleCollector = {
     /** @param {Creep} creep **/
     init: function(creep) {
-
-        let containers = [];
-        creep.room.memory.sources.forEach(function(source) {
-            if (source.containerId) {
-                containers[containers.length] = Game.getObjectById(source.containerId);
-            }
-        });
-
         creep.memory.targetId = undefined;
-        if (containers.length) {
-            containers = _.sortBy(containers, function(container) {
-                return _.sum(container.store) * -1;
+
+        let loot = creep.room.find(FIND_DROPPED_ENERGY);
+        if (loot.length) {
+            creep.memory.targetId = loot[0].id;
+            creep.memory.looting = true;
+        } else {
+            let containers = [];
+            creep.room.memory.sources.forEach(function(source) {
+                if (source.containerId) {
+                    containers[containers.length] = Game.getObjectById(source.containerId);
+                }
             });
-            creep.memory.targetId = containers[0].id;
+            if (containers.length) {
+                containers = _.sortBy(containers, function(container) {
+                    return _.sum(container.store) * -1;
+                });
+                creep.memory.targetId = containers[0].id;
+            }
+            creep.memory.looting = false;
         }
         creep.memory.collecting = true;
 
@@ -26,15 +32,21 @@ var roleCollector = {
     cleanup: function(creepMemory, roomMemory) {
         creepMemory.targetId = undefined;
         creepMemory.collecting = undefined;
+        creepMemory.looting = undefined;
     },
     
     /** @param {Creep} creep **/
     run: function(creep) {
         if (creep.memory.collecting) {
-            let container = Game.getObjectById(creep.memory.targetId);
-            let result = creep.withdraw(container, RESOURCE_ENERGY);
+            let object = Game.getObjectById(creep.memory.targetId);
+            let result = undefined;
+            if (creep.memory.looting) {
+                result = creep.pickup(object);
+            } else {
+                result = creep.withdraw(object, RESOURCE_ENERGY);
+            }
             if (result === ERR_NOT_IN_RANGE) {
-                creep.moveTo(container);
+                creep.moveTo(object);
                 return true;
             } else if (result === OK) {
                 creep.memory.collecting = false;
