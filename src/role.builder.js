@@ -60,7 +60,7 @@ var roleBuilder = {
                 if (creep.room.memory.containerCount) {
                     let container = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                         filter: function (structure) {
-                            return (structure.structureType === STRUCTURE_CONTAINER && structure.energy > 0);
+                            return structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0;
                         }
                     });
                     if (container) creep.memory.targetId = container.id;
