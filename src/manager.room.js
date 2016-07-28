@@ -344,7 +344,7 @@ var managerRoom = {
     checkStorage: function(room) {
         if (room.phase.phase >= 10) {
             if (!room.memory.storage) room.memory.storage = [];
-            if (room.memory.storage.length < 1)
+            if (room.memory.storage.length < 1) {
                 this.initialiseStorage(room);
             }
         }
