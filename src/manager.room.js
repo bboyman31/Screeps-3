@@ -112,7 +112,9 @@ var managerRoom = {
             { x: -2, y: +3 },
             { x: +2, y: +3 },
             { x: -3, y: -2 },
-            { x: -3, y: +2 }
+            { x: -3, y: +2 },
+
+            { x: +4, y: -1 }
         ];
 
         let extensionSites = _.size(room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_EXTENSION } }));
