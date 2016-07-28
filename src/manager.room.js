@@ -124,7 +124,7 @@ var managerRoom = {
         let buildExtensions = extensionsRequired - room.memory.extensionCount - extensionSites;
 
         if (buildExtensions > 0) {
-            let home = GameObject.getObjectById(room.memory.homeId);
+            let home = Game.getObjectById(room.memory.homeId);
             extensionPositions.forEach(function (extensionPosition) {
                 if (buildExtensions == 0) return;
                 if (room.createConstructionSite(home.pos.x + extensionPosition.x, home.pos.y + extensionPosition.y, STRUCTURE_EXTENSION) === OK) {
