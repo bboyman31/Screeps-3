@@ -74,8 +74,11 @@ var roleBuilder = {
             if (creep.memory.targetId) {
                 if (creep.memory.targetSourceIndex !== undefined) {
                     let source = Game.getObjectById(creep.memory.targetId);
-                    if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    let result = creep.harvest(source);
+                    if (result == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source);
+                    } else if (result == ERR_NOT_ENOUGH_RESOURCES) {
+                        return false;
                     }
                 } else {
                     let container = Game.getObjectById(creep.memory.targetId);
