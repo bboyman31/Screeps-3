@@ -229,7 +229,7 @@ var managerRoom = {
 
         // Create roads around the extensions.
         let extensions = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_EXTENSION } });
-        extentions.forEach(function (extension) {
+        extensions.forEach(function (extension) {
             room.createConstructionSite(extension.pos.x, extension.pos.y - 1, STRUCTURE_ROAD);
             room.createConstructionSite(extension.pos.x + 1, extension.pos.y, STRUCTURE_ROAD);
             room.createConstructionSite(extension.pos.x, extension.pos.y + 1, STRUCTURE_ROAD);
