@@ -46,6 +46,7 @@ var managerRoom = {
                     this.checkRoads(room);
                     this.checkWalls(room);
                     this.checkTowers(room);
+                    this.checkStorage(room);
                     this.renewCreeps(room);
 
                     towerManager.run(room, towers);
@@ -89,28 +90,51 @@ var managerRoom = {
     
     /** @param {Room} room **/
     initExtensions: function(room) {
-        if (room.memory.phase >= 2) {
-            if (room.memory.extensionCount < 1) room.createConstructionSite(room.memory.home.pos.x - 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 2) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 3) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 4) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 5) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-        }
-        if (room.memory.phase >= 3) {
-            if (room.memory.extensionCount < 6) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y - 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 7) room.createConstructionSite(room.memory.home.pos.x - 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 8) room.createConstructionSite(room.memory.home.pos.x + 1, room.memory.home.pos.y + 2, STRUCTURE_EXTENSION);        
-            if (room.memory.extensionCount < 9) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 10) room.createConstructionSite(room.memory.home.pos.x + 2, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION); 
-        }
+        let extensionPositions = [
+            { x: -1, y: -2 },
+            { x: +1, y: -2 },
+            { x: +2, y: -1 },
+            { x: +2, y: +1 },
+            { x: -1, y: +2 },
+            { x: +1, y: +2 },
+            { x: -2, y: -1 },
+            { x: -2, y: +1 },
 
-        if (room.memory.phase >= 8) {
-            if (room.memory.extensionCount < 11) room.createConstructionSite(room.memory.home.pos.x - 3, room.memory.home.pos.y - 1, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 12) room.createConstructionSite(room.memory.home.pos.x - 3, room.memory.home.pos.y + 1, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 13) room.createConstructionSite(room.memory.home.pos.x - 4, room.memory.home.pos.y, STRUCTURE_EXTENSION);        
-            if (room.memory.extensionCount < 14) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y - 4, STRUCTURE_EXTENSION);
-            if (room.memory.extensionCount < 15) room.createConstructionSite(room.memory.home.pos.x, room.memory.home.pos.y + 4, STRUCTURE_EXTENSION); 
-        }
+            { x: +0, y: -3 },
+            { x: +3, y: +0 },
+            { x: +0, y: +3 },
+            { x: -3, y: +0 },
+
+            { x: -2, y: -3 },
+            { x: +2, y: -3 },
+            { x: +3, y: -2 },
+            { x: +3, y: +2 },
+            { x: -2, y: +3 },
+            { x: +2, y: +3 },
+            { x: -3, y: -2 },
+            { x: -3, y: +2 },
+
+            { x: +4, y: -1 }
+        ];
+
+        let extensionSites = _.size(room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_EXTENSION } }));
+
+        let extensionsRequired = 0;
+        if (room.memory.phase >= 2) extensionsRequired = 5;
+        if (room.memory.phase >= 3) extensionsRequired = 10;
+        if (room.memory.phase >= 8) extensionsRequired = 15;
+        if (room.memory.phase >= 9) extensionsRequired = 20;
+        let buildExtensions = extensionsRequired - room.memory.extensionCount - extensionSites;
+
+        if (buildExtensions > 0) {
+            let home = Game.getObjectById(room.memory.homeId);
+            extensionPositions.forEach(function (extensionPosition) {
+                if (buildExtensions == 0) return;
+                if (room.createConstructionSite(home.pos.x + extensionPosition.x, home.pos.y + extensionPosition.y, STRUCTURE_EXTENSION) === OK) {
+                    buildExtensions--;
+                }
+            });
+        };
     },
 
     /** @param {Room} room **/
@@ -318,6 +342,31 @@ var managerRoom = {
         }
     },
 
+    /** @param {Room} room **/
+    checkStorage: function(room) {
+        if (room.memory.phase >= 10) {
+            if (!room.memory.storage) room.memory.storage = [];
+            if (room.memory.storage.length < 1) {
+                this.initialiseStorage(room);
+            }
+        }
+    },
+
+    /** @param {Room} room **/
+    initialiseStorage: function(room) {
+        let towers = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } });
+        if (towers.length) {
+            let storageSites = [{ x: 0, y: -2 }, { x: 2, y: 0 }, { x: 0, y: 2 }, { x: -2, y: 0 }];
+            storageSites.forEach(function (storageSite) {
+                if (room.memory.storage.length) return;
+                if (room.createConstructionSite(towers[0].pos.x + storageSite.x, towers[0].pos.y + storageSite.y, STRUCTURE_STORAGE) === OK) {
+                    let sites = room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_STORAGE } });
+                    room.memory.storage[room.memory.storage.length] = { building: true, siteId: sites[0].id, storageId: null };
+                }
+            });
+        }
+    },
+
     renewCreeps: function(room) {
         var spawn = Game.getObjectById(room.memory.home.id);
         var creeps = spawn.pos.findInRange(FIND_MY_CREEPS, 1);
@@ -345,19 +394,25 @@ var managerRoom = {
         if (room.memory.containerCount <= 1) return 5; // Separating the phases here allow us to change the creep roles depending number of containers.
 
         // Phase 6 is we build walls and ramparts
-        let rampartCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_RAMPART; } }));
-        let constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
+        let rampartCount = _.size(room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }));
+        let constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_RAMPART } }));
         if (rampartCount == 0 || constructionSiteCount > 0) return 6;
 
         // Phase 7 is build a tower
-        let towerCount = _.size(room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_TOWER; } }));
-        constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES));
+        let towerCount = _.size(room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }));
+        constructionSiteCount = _.size(room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_TOWER } }));
         if (towerCount == 0 || constructionSiteCount > 0) return 7;
 
-        // Phase 8 we wait for a pioneer to be created.
-        if (room.memory.pioneerCount < 1) return 8;
+        // Phase 8 we build 5 more extensions
+        if (room.memory.extensionCount < 15) return 8;
 
-        return 9; // And on the 9th day, we took another room!
+        // Phase 9 we build another 5 extentions (total 20)
+        if (room.memory.extensionCount < 20) return 9;
+
+        // Phase 10 we build a storage near our turret
+        if (!room.storage) return 10;
+
+        return 11;
     }
 };
 

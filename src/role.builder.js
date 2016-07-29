@@ -59,8 +59,8 @@ var roleBuilder = {
             if (!creep.memory.targetId) {
                 if (creep.room.memory.containerCount) {
                     let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                        filter: (structure) => {
-                            return (structure.structureType == STRUCTURE_CONTAINER && structure.energy > 0);
+                        filter: function (structure) {
+                            return structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0;
                         }
                     });
                     if (container) creep.memory.targetId = container.id;
@@ -74,8 +74,11 @@ var roleBuilder = {
             if (creep.memory.targetId) {
                 if (creep.memory.targetSourceIndex !== undefined) {
                     let source = Game.getObjectById(creep.memory.targetId);
-                    if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    let result = creep.harvest(source);
+                    if (result == ERR_NOT_IN_RANGE) {
                         creep.moveTo(source);
+                    } else if (result == ERR_NOT_ENOUGH_RESOURCES) {
+                        return false;
                     }
                 } else {
                     let container = Game.getObjectById(creep.memory.targetId);
