@@ -226,6 +226,15 @@ var managerRoom = {
 
         // Create a ring road around the spawn.
         helperRoad.createRingRoad(room, room.memory.home.pos);
+
+        // Create roads around the extensions.
+        let extensions = room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_EXTENSION } });
+        extensions.forEach(function (extension) {
+            room.createConstructionSite(extension.pos.x, extension.pos.y - 1, STRUCTURE_ROAD);
+            room.createConstructionSite(extension.pos.x + 1, extension.pos.y, STRUCTURE_ROAD);
+            room.createConstructionSite(extension.pos.x, extension.pos.y + 1, STRUCTURE_ROAD);
+            room.createConstructionSite(extension.pos.x - 1, extension.pos.y, STRUCTURE_ROAD);
+        });
     },
 
     /** @param {Room} room **/

@@ -57,16 +57,23 @@ var roleCollector = {
             }
         } else {
             if (creep.carry.energy > 0) {
-                let targets = creep.room.find(FIND_STRUCTURES, {
+                let targets = creep.room.find(FIND_MY_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
                             structure.energy < structure.energyCapacity;
                     }
                 });
                 if (targets.length == 0) {
-                    targets = creep.room.find(FIND_STRUCTURES, {
+                    targets = creep.room.find(FIND_MY_STRUCTURES, {
                         filter: (tower) => {
                             return (tower.structureType == STRUCTURE_TOWER && tower.energy < tower.energyCapacity);
+                        }
+                    });
+                }
+                if (targets.length == 0) {
+                    targets = creep.room.find(FIND_MY_STRUCTURES, {
+                        filter: (storage) => {
+                            return (storage.structureType == STRUCTURE_STORAGE && _.sum(storage.store) < storage.storeCapacity);
                         }
                     });
                 }

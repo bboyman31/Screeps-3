@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"storageS",
+				"storageSite"
+			],
+			[
+				"FIND_MY",
+				"FIND_MY_STRUCTURES"
+			],
+			[
+				"exten",
+				"extensionPositions"
+			],
+			[
+				"extensi",
+				"extensionPosition"
+			],
+			[
+				"buid",
+				"buildExtensions"
+			],
+			[
+				"extens",
+				"extensionPositions"
+			],
+			[
+				"ex",
+				"extensionCount"
+			],
+			[
 				"rampa",
 				"rampartGoals"
 			],
@@ -95,7 +123,7 @@
 			"file": "src/manager.room.js",
 			"settings":
 			{
-				"buffer_size": 16944,
+				"buffer_size": 16863,
 				"line_ending": "Windows"
 			}
 		},
@@ -111,7 +139,7 @@
 			"file": "src/role.builder.js",
 			"settings":
 			{
-				"buffer_size": 3968,
+				"buffer_size": 4137,
 				"line_ending": "Windows"
 			}
 		},
@@ -119,7 +147,7 @@
 			"file": "src/role.collector.js",
 			"settings":
 			{
-				"buffer_size": 3388,
+				"buffer_size": 3867,
 				"line_ending": "Windows"
 			}
 		},
@@ -135,7 +163,7 @@
 			"file": "src/manager.role.js",
 			"settings":
 			{
-				"buffer_size": 6899,
+				"buffer_size": 6860,
 				"line_ending": "Windows"
 			}
 		}
@@ -177,6 +205,14 @@
 	],
 	"file_history":
 	[
+		"/D/Users/Jargon/Downloads/70a942-201607251606 (2).log",
+		"/D/Users/Jargon/Downloads/70a942-201607251606 (3).log",
+		"/D/Users/Jargon/Downloads/70a942-201607251606 (4).log",
+		"/D/Users/Jargon/Downloads/70a942-201607251606 (6).log",
+		"/D/Users/Jargon/Downloads/70a942-201607251606 (7).log",
+		"/D/Users/Jargon/Downloads/70a942-201607251606 (1).log",
+		"/D/Users/Jargon/Downloads/stdout_2528_2016725131548.log",
+		"/D/Users/Jargon/Downloads/70a942-201607251606.log",
 		"/D/Users/Jargon/Downloads/stdout_2528_201672511170 (2).log",
 		"/D/Users/Jargon/Downloads/stdout_2528_2016725112610 (1).log",
 		"/D/Users/Jargon/Downloads/stdout_2528_20167251260.log",
@@ -272,6 +308,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"idropan",
+			" 400 ",
+			" 401 ",
+			" 500 ",
+			" 200 ",
+			"400",
+			"idropan",
 			"!');",
 			"findClosestByPath",
 			"\\n[\\n]+",
@@ -337,7 +380,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -376,15 +419,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16944,
+						"buffer_size": 16863,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3962,
-								3976
+								3958,
+								3958
 							]
 						],
 						"settings":
@@ -394,10 +437,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1243.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -427,7 +470,7 @@
 						"translation.y": 503.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -436,45 +479,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3968,
+						"buffer_size": 4137,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3238,
-								3238
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 484.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/role.collector.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3388,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								197,
-								208
+								2441,
+								2441
 							]
 						],
 						"settings":
@@ -487,7 +500,37 @@
 						"translation.y": 450.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/role.collector.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3867,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								139,
+								143
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -517,7 +560,7 @@
 						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -526,15 +569,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6899,
+						"buffer_size": 6860,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2334,
+								2339
 							]
 						],
 						"settings":
@@ -543,11 +586,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 612.0,
+						"translation.x": 20.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
